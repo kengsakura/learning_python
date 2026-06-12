@@ -4,7 +4,10 @@ import fs from "fs";
 import path from "path";
 
 // โหมด dev ใช้ SQLite ไฟล์ในเครื่อง — production แนะนำให้สลับ data layer ไป Supabase (ดู README)
-const DB_DIR = process.env.DB_DIR || path.join(process.cwd(), "data");
+// บน Vercel filesystem เขียนได้แค่ /tmp — ใช้เป็นโหมดเดโม่ (ข้อมูลหายเมื่อ serverless function ถูกรีเซ็ต)
+const DB_DIR =
+  process.env.DB_DIR ||
+  (process.env.VERCEL ? "/tmp" : path.join(process.cwd(), "data"));
 const DB_PATH =
   process.env.DB_PATH ||
   path.join(DB_DIR, process.env.NODE_ENV === "production" ? "prod.db" : "dev.db");
