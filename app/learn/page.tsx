@@ -11,9 +11,9 @@ export default async function LearnPage() {
   if (!s) redirect("/login");
   if (s.role === "teacher") redirect("/admin");
 
-  const lessons = listLessons();
-  const done = getProgress(s.userId);
-  const scores = getBestQuizScores(s.userId);
+  const lessons = await listLessons();
+  const done = await getProgress(s.userId);
+  const scores = await getBestQuizScores(s.userId);
   const doneCount = lessons.filter((l) => done.has(l.id)).length;
 
   return (

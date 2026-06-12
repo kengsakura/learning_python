@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import AppShell from "@/components/AppShell";
 import { getSession } from "@/lib/auth";
-import { db } from "@/lib/db";
+import { qOne, q } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 
@@ -11,28 +11,25 @@ export default async function AdminPage() {
   if (!s) redirect("/login");
   if (s.role !== "teacher") redirect("/learn");
 
-  const d = db();
-  const count = (sql: string) => (d.prepare(sql).get() as { c: number }).c;
+  const count = async (sql: string) => Number((await qOne<{ c: number }>(sql))?.c || 0);
   const stats = [
-    { label: "นักเรียน", value: count("SELECT COUNT(*) c FROM users WHERE role='student'"), href: "/admin/students", icon: "👩‍🎓" },
-    { label: "บทเรียน", value: count("SELECT COUNT(*) c FROM lessons"), href: "/admin/lessons", icon: "📘" },
-    { label: "โจทย์", value: count("SELECT COUNT(*) c FROM problems"), href: "/admin/problems", icon: "🏆" },
-    { label: "การส่งคำตอบ", value: count("SELECT COUNT(*) c FROM submissions"), href: "/admin/students", icon: "📨" },
+    { label: "นักเรียน", value: await count("SELECT COUNT(*) AS c FROM users WHERE role='student'"), href: "/admin/students", icon: "👩‍🎓" },
+    { label: "บทเรียน", value: await count("SELECT COUNT(*) AS c FROM lessons"), href: "/admin/lessons", icon: "📘" },
+    { label: "โจทย์", value: await count("SELECT COUNT(*) AS c FROM problems"), href: "/admin/problems", icon: "🏆" },
+    { label: "การส่งคำตอบ", value: await count("SELECT COUNT(*) AS c FROM submissions"), href: "/admin/students", icon: "📨" },
   ];
 
-  const recent = d
-    .prepare(
-      `SELECT sub.created_at, sub.passed, sub.total, sub.success, sub.mode,
-              u.name AS student, p.title AS problem
-       FROM submissions sub
-       JOIN users u ON u.id = sub.user_id
-       JOIN problems p ON p.id = sub.problem_id
-       ORDER BY sub.id DESC LIMIT 10`
-    )
-    .all() as {
+  const recent = await q<{
     created_at: string; passed: number; total: number; success: number; mode: string;
     student: string; problem: string;
-  }[];
+  }>(
+    `SELECT sub.created_at, sub.passed, sub.total, sub.success, sub.mode,
+            u.name AS student, p.title AS problem
+     FROM submissions sub
+     JOIN users u ON u.id = sub.user_id
+     JOIN problems p ON p.id = sub.problem_id
+     ORDER BY sub.id DESC LIMIT 10`
+  );
 
   return (
     <AppShell session={s} active="/admin">

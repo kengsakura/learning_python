@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import AppShell from "@/components/AppShell";
 import { getSession } from "@/lib/auth";
-import { db } from "@/lib/db";
+import { q, qOne } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 
@@ -9,25 +9,29 @@ export default async function AdminStudentsPage() {
   const s = await getSession();
   if (!s || s.role !== "teacher") redirect("/login");
 
-  const d = db();
   const totals = {
-    lessons: (d.prepare("SELECT COUNT(*) c FROM lessons WHERE published=1").get() as { c: number }).c,
-    problems: (d.prepare("SELECT COUNT(*) c FROM problems WHERE published=1").get() as { c: number }).c,
+    lessons: Number((await qOne<{ c: number }>("SELECT COUNT(*) AS c FROM lessons WHERE published=1"))?.c || 0),
+    problems: Number((await qOne<{ c: number }>("SELECT COUNT(*) AS c FROM problems WHERE published=1"))?.c || 0),
   };
 
-  const students = d
-    .prepare(
-      `SELECT u.id, u.name, u.username, u.created_at,
-        (SELECT COUNT(*) FROM lesson_progress lp WHERE lp.user_id = u.id) AS lessons_done,
-        (SELECT COUNT(DISTINCT problem_id) FROM submissions sub WHERE sub.user_id = u.id AND sub.success = 1) AS solved,
-        (SELECT COUNT(*) FROM submissions sub WHERE sub.user_id = u.id) AS attempts,
-        (SELECT MAX(score * 100.0 / total) FROM quiz_attempts qa WHERE qa.user_id = u.id) AS best_quiz
-       FROM users u WHERE u.role = 'student' ORDER BY u.name`
-    )
-    .all() as {
+  const rows = await q<{
     id: number; name: string; username: string; created_at: string;
     lessons_done: number; solved: number; attempts: number; best_quiz: number | null;
-  }[];
+  }>(
+    `SELECT u.id, u.name, u.username, u.created_at,
+      (SELECT COUNT(*) FROM lesson_progress lp WHERE lp.user_id = u.id) AS lessons_done,
+      (SELECT COUNT(DISTINCT problem_id) FROM submissions sub WHERE sub.user_id = u.id AND sub.success = 1) AS solved,
+      (SELECT COUNT(*) FROM submissions sub WHERE sub.user_id = u.id) AS attempts,
+      (SELECT MAX(score * 100.0 / total) FROM quiz_attempts qa WHERE qa.user_id = u.id) AS best_quiz
+     FROM users u WHERE u.role = 'student' ORDER BY u.name`
+  );
+  const students = rows.map((r) => ({
+    ...r,
+    lessons_done: Number(r.lessons_done),
+    solved: Number(r.solved),
+    attempts: Number(r.attempts),
+    best_quiz: r.best_quiz != null ? Number(r.best_quiz) : null,
+  }));
 
   return (
     <AppShell session={s} active="/admin/students">

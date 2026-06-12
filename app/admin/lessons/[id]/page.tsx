@@ -16,10 +16,10 @@ export default async function AdminLessonEditPage({
   if (!s || s.role !== "teacher") redirect("/login");
 
   const { id } = await params;
-  const lesson = getLesson(Number(id));
+  const lesson = await getLesson(Number(id));
   if (!lesson) notFound();
 
-  const questions = getQuestions(lesson.id).map((q) => ({
+  const questions = (await getQuestions(lesson.id)).map((q) => ({
     question: q.question,
     choices: JSON.parse(q.choices) as string[],
     answer_index: q.answer_index,

@@ -4,7 +4,7 @@ import AppShell from "@/components/AppShell";
 import CreateButton from "@/components/admin/CreateButton";
 import { getSession } from "@/lib/auth";
 import { listLessons } from "@/lib/queries";
-import { db } from "@/lib/db";
+import { q } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 
@@ -12,11 +12,11 @@ export default async function AdminLessonsPage() {
   const s = await getSession();
   if (!s || s.role !== "teacher") redirect("/login");
 
-  const lessons = listLessons(true);
-  const qCount = db()
-    .prepare("SELECT lesson_id, COUNT(*) AS c FROM quiz_questions GROUP BY lesson_id")
-    .all() as { lesson_id: number; c: number }[];
-  const qMap = new Map(qCount.map((r) => [r.lesson_id, r.c]));
+  const lessons = await listLessons(true);
+  const qCount = await q<{ lesson_id: number; c: number }>(
+    "SELECT lesson_id, COUNT(*) AS c FROM quiz_questions GROUP BY lesson_id"
+  );
+  const qMap = new Map(qCount.map((r) => [Number(r.lesson_id), Number(r.c)]));
 
   return (
     <AppShell session={s} active="/admin/lessons">

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import { db } from "@/lib/db";
+import { q, qOne } from "@/lib/db";
 import { createSession } from "@/lib/auth";
 
 export async function POST(req: Request) {
@@ -15,13 +15,19 @@ export async function POST(req: Request) {
       { status: 400 }
     );
   }
-  const exists = db().prepare("SELECT id FROM users WHERE username = ?").get(u);
+  const exists = await qOne("SELECT id FROM users WHERE username = ?", [u]);
   if (exists) {
     return NextResponse.json({ error: "ชื่อผู้ใช้นี้ถูกใช้แล้ว" }, { status: 409 });
   }
-  const r = db()
-    .prepare("INSERT INTO users (username, password_hash, name, role) VALUES (?,?,?,'student')")
-    .run(u, bcrypt.hashSync(String(password), 10), String(name).trim());
-  await createSession({ userId: Number(r.lastInsertRowid), username: u, name: String(name).trim(), role: "student" });
+  const rows = await q<{ id: number }>(
+    "INSERT INTO users (username, password_hash, name, role) VALUES (?,?,?,'student') RETURNING id",
+    [u, bcrypt.hashSync(String(password), 10), String(name).trim()]
+  );
+  await createSession({
+    userId: Number(rows[0].id),
+    username: u,
+    name: String(name).trim(),
+    role: "student",
+  });
   return NextResponse.json({ role: "student" });
 }

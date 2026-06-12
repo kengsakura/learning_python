@@ -4,7 +4,7 @@ import AppShell from "@/components/AppShell";
 import CreateButton from "@/components/admin/CreateButton";
 import { getSession } from "@/lib/auth";
 import { listProblems } from "@/lib/queries";
-import { db } from "@/lib/db";
+import { q } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 
@@ -19,11 +19,11 @@ export default async function AdminProblemsPage() {
   const s = await getSession();
   if (!s || s.role !== "teacher") redirect("/login");
 
-  const problems = listProblems(true);
-  const tCount = db()
-    .prepare("SELECT problem_id, COUNT(*) AS c FROM test_cases GROUP BY problem_id")
-    .all() as { problem_id: number; c: number }[];
-  const tMap = new Map(tCount.map((r) => [r.problem_id, r.c]));
+  const problems = await listProblems(true);
+  const tCount = await q<{ problem_id: number; c: number }>(
+    "SELECT problem_id, COUNT(*) AS c FROM test_cases GROUP BY problem_id"
+  );
+  const tMap = new Map(tCount.map((r) => [Number(r.problem_id), Number(r.c)]));
 
   return (
     <AppShell session={s} active="/admin/problems">

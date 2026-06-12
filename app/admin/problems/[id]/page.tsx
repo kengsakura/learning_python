@@ -16,10 +16,10 @@ export default async function AdminProblemEditPage({
   if (!s || s.role !== "teacher") redirect("/login");
 
   const { id } = await params;
-  const problem = getProblem(Number(id));
+  const problem = await getProblem(Number(id));
   if (!problem) notFound();
 
-  const tests = getTestCases(problem.id).map((t) => ({
+  const tests = (await getTestCases(problem.id)).map((t) => ({
     input: t.input,
     expected_output: t.expected_output,
     hidden: !!t.hidden,

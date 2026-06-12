@@ -12,11 +12,12 @@ export default async function ProblemPage({ params }: { params: Promise<{ id: st
   if (!s) redirect("/login");
 
   const { id } = await params;
-  const problem = getProblem(Number(id));
+  const problem = await getProblem(Number(id));
   if (!problem || (!problem.published && s.role !== "teacher")) notFound();
 
-  const tests = getTestCases(problem.id);
-  const solved = s.role === "student" ? getSolvedProblems(s.userId).has(problem.id) : false;
+  const tests = await getTestCases(problem.id);
+  const solved =
+    s.role === "student" ? (await getSolvedProblems(s.userId)).has(problem.id) : false;
 
   return (
     <AppShell session={s} active="/problems">

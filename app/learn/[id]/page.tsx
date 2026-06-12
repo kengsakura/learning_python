@@ -14,21 +14,21 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
   if (!s) redirect("/login");
 
   const { id } = await params;
-  const lesson = getLesson(Number(id));
+  const lesson = await getLesson(Number(id));
   if (!lesson || (!lesson.published && s.role !== "teacher")) notFound();
 
   // ส่งคำถามไปหน้าเว็บโดยไม่แนบเฉลย — ตรวจที่เซิร์ฟเวอร์
-  const questions = getQuestions(lesson.id).map((q) => ({
+  const questions = (await getQuestions(lesson.id)).map((q) => ({
     id: q.id,
     question: q.question,
     choices: JSON.parse(q.choices) as string[],
   }));
 
-  const all = listLessons();
+  const all = await listLessons();
   const idx = all.findIndex((l) => l.id === lesson.id);
   const prev = idx > 0 ? all[idx - 1] : null;
   const next = idx >= 0 && idx < all.length - 1 ? all[idx + 1] : null;
-  const done = s.role === "student" ? getProgress(s.userId).has(lesson.id) : false;
+  const done = s.role === "student" ? (await getProgress(s.userId)).has(lesson.id) : false;
 
   return (
     <AppShell session={s} active="/learn">

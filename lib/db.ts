@@ -1,32 +1,98 @@
-import Database from "better-sqlite3";
 import bcrypt from "bcryptjs";
 import fs from "fs";
 import path from "path";
 
-// โหมด dev ใช้ SQLite ไฟล์ในเครื่อง — production แนะนำให้สลับ data layer ไป Supabase (ดู README)
-// บน Vercel filesystem เขียนได้แค่ /tmp — ใช้เป็นโหมดเดโม่ (ข้อมูลหายเมื่อ serverless function ถูกรีเซ็ต)
+// Data layer แบบเลือก backend อัตโนมัติ:
+// - มี POSTGRES_URL (เช่นจาก Supabase integration บน Vercel) → ใช้ Postgres
+// - ไม่มี → ใช้ SQLite ไฟล์ในเครื่อง (โหมด dev / รันเองในเครื่อง)
+// SQL ทุกคำสั่งเขียนด้วย placeholder `?` แล้วถูกแปลงเป็น $1..$n ให้เองเมื่อใช้ Postgres
+
+const PG_URL =
+  process.env.POSTGRES_URL ||
+  process.env.SUPABASE_DB_URL ||
+  process.env.DATABASE_URL ||
+  "";
+
 const DB_DIR =
   process.env.DB_DIR ||
   (process.env.VERCEL ? "/tmp" : path.join(process.cwd(), "data"));
-const DB_PATH =
+const SQLITE_PATH =
   process.env.DB_PATH ||
   path.join(DB_DIR, process.env.NODE_ENV === "production" ? "prod.db" : "dev.db");
 
-let _db: Database.Database | null = null;
+type Row = Record<string, unknown>;
 
-export function db(): Database.Database {
-  if (_db) return _db;
-  fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
-  _db = new Database(DB_PATH);
-  _db.pragma("journal_mode = WAL");
-  _db.pragma("foreign_keys = ON");
-  migrate(_db);
-  seed(_db);
-  return _db;
+/* eslint-disable @typescript-eslint/no-explicit-any */
+let pgSql: any = null;
+let sqliteDb: any = null;
+let initPromise: Promise<void> | null = null;
+
+async function getPg() {
+  if (!pgSql) {
+    const postgres = (await import("postgres")).default;
+    // prepare:false จำเป็นเมื่อต่อผ่าน pgbouncer (pooled URL ของ Supabase)
+    pgSql = postgres(PG_URL, { prepare: false, max: 1 });
+  }
+  return pgSql;
 }
 
-function migrate(d: Database.Database) {
-  d.exec(`
+async function getSqlite() {
+  if (!sqliteDb) {
+    const Database = (await import("better-sqlite3")).default;
+    fs.mkdirSync(path.dirname(SQLITE_PATH), { recursive: true });
+    sqliteDb = new Database(SQLITE_PATH);
+    sqliteDb.pragma("journal_mode = WAL");
+    sqliteDb.pragma("foreign_keys = ON");
+  }
+  return sqliteDb;
+}
+
+function toPgPlaceholders(sql: string): string {
+  let n = 0;
+  return sql.replace(/\?/g, () => `$${++n}`);
+}
+
+async function rawQuery<T = Row>(sql: string, params: unknown[] = []): Promise<T[]> {
+  if (PG_URL) {
+    const pg = await getPg();
+    return (await pg.unsafe(toPgPlaceholders(sql), params as never[])) as T[];
+  }
+  const d = await getSqlite();
+  const stmt = d.prepare(sql);
+  if (stmt.reader) return stmt.all(...params) as T[];
+  stmt.run(...params);
+  return [];
+}
+
+async function rawExec(ddl: string): Promise<void> {
+  if (PG_URL) {
+    const pg = await getPg();
+    await pg.unsafe(ddl);
+    return;
+  }
+  const d = await getSqlite();
+  d.exec(ddl);
+}
+
+/** รัน query (สร้าง schema + seed ให้อัตโนมัติครั้งแรก) — ใช้ placeholder `?` */
+export async function q<T = Row>(sql: string, params: unknown[] = []): Promise<T[]> {
+  if (!initPromise) initPromise = init();
+  await initPromise;
+  return rawQuery<T>(sql, params);
+}
+
+/** เหมือน q แต่คืนแถวแรกแถวเดียว (หรือ undefined) */
+export async function qOne<T = Row>(sql: string, params: unknown[] = []): Promise<T | undefined> {
+  const rows = await q<T>(sql, params);
+  return rows[0];
+}
+
+async function init() {
+  await migrate();
+  await seed();
+}
+
+const SQLITE_SCHEMA = `
   CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL UNIQUE,
@@ -46,7 +112,7 @@ function migrate(d: Database.Database) {
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     lesson_id INTEGER NOT NULL REFERENCES lessons(id) ON DELETE CASCADE,
     question TEXT NOT NULL,
-    choices TEXT NOT NULL,            -- JSON array ของตัวเลือก
+    choices TEXT NOT NULL,
     answer_index INTEGER NOT NULL,
     explanation TEXT NOT NULL DEFAULT ''
   );
@@ -92,24 +158,93 @@ function migrate(d: Database.Database) {
     success INTEGER NOT NULL DEFAULT 0,
     created_at TEXT NOT NULL DEFAULT (datetime('now'))
   );
-  `);
+`;
+
+// โครงสร้างเดียวกันในไวยากรณ์ Postgres — เก็บวันที่เป็น TEXT รูปแบบเดียวกับ SQLite
+const PG_NOW = `to_char(now() AT TIME ZONE 'utc', 'YYYY-MM-DD HH24:MI:SS')`;
+const PG_SCHEMA = `
+  CREATE TABLE IF NOT EXISTS users (
+    id BIGSERIAL PRIMARY KEY,
+    username TEXT NOT NULL UNIQUE,
+    password_hash TEXT NOT NULL,
+    name TEXT NOT NULL,
+    role TEXT NOT NULL DEFAULT 'student' CHECK (role IN ('student','teacher')),
+    created_at TEXT NOT NULL DEFAULT ${PG_NOW}
+  );
+  CREATE TABLE IF NOT EXISTS lessons (
+    id BIGSERIAL PRIMARY KEY,
+    title TEXT NOT NULL,
+    content TEXT NOT NULL DEFAULT '',
+    sort_order INTEGER NOT NULL DEFAULT 0,
+    published INTEGER NOT NULL DEFAULT 1
+  );
+  CREATE TABLE IF NOT EXISTS quiz_questions (
+    id BIGSERIAL PRIMARY KEY,
+    lesson_id BIGINT NOT NULL REFERENCES lessons(id) ON DELETE CASCADE,
+    question TEXT NOT NULL,
+    choices TEXT NOT NULL,
+    answer_index INTEGER NOT NULL,
+    explanation TEXT NOT NULL DEFAULT ''
+  );
+  CREATE TABLE IF NOT EXISTS problems (
+    id BIGSERIAL PRIMARY KEY,
+    title TEXT NOT NULL,
+    description TEXT NOT NULL DEFAULT '',
+    difficulty TEXT NOT NULL DEFAULT 'easy' CHECK (difficulty IN ('easy','medium','hard')),
+    starter_code TEXT NOT NULL DEFAULT '',
+    published INTEGER NOT NULL DEFAULT 1,
+    sort_order INTEGER NOT NULL DEFAULT 0
+  );
+  CREATE TABLE IF NOT EXISTS test_cases (
+    id BIGSERIAL PRIMARY KEY,
+    problem_id BIGINT NOT NULL REFERENCES problems(id) ON DELETE CASCADE,
+    input TEXT NOT NULL DEFAULT '',
+    expected_output TEXT NOT NULL DEFAULT '',
+    hidden INTEGER NOT NULL DEFAULT 0
+  );
+  CREATE TABLE IF NOT EXISTS lesson_progress (
+    id BIGSERIAL PRIMARY KEY,
+    user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    lesson_id BIGINT NOT NULL REFERENCES lessons(id) ON DELETE CASCADE,
+    completed_at TEXT NOT NULL DEFAULT ${PG_NOW},
+    UNIQUE(user_id, lesson_id)
+  );
+  CREATE TABLE IF NOT EXISTS quiz_attempts (
+    id BIGSERIAL PRIMARY KEY,
+    user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    lesson_id BIGINT NOT NULL REFERENCES lessons(id) ON DELETE CASCADE,
+    score INTEGER NOT NULL,
+    total INTEGER NOT NULL,
+    created_at TEXT NOT NULL DEFAULT ${PG_NOW}
+  );
+  CREATE TABLE IF NOT EXISTS submissions (
+    id BIGSERIAL PRIMARY KEY,
+    user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    problem_id BIGINT NOT NULL REFERENCES problems(id) ON DELETE CASCADE,
+    code TEXT NOT NULL,
+    mode TEXT NOT NULL DEFAULT 'code' CHECK (mode IN ('code','blocks')),
+    passed INTEGER NOT NULL,
+    total INTEGER NOT NULL,
+    success INTEGER NOT NULL DEFAULT 0,
+    created_at TEXT NOT NULL DEFAULT ${PG_NOW}
+  );
+`;
+
+async function migrate() {
+  await rawExec(PG_URL ? PG_SCHEMA : SQLITE_SCHEMA);
 }
 
-function seed(d: Database.Database) {
-  const hasUsers = d.prepare("SELECT COUNT(*) AS c FROM users").get() as { c: number };
-  if (hasUsers.c > 0) return;
+async function seed() {
+  const users = await rawQuery<{ c: number }>("SELECT COUNT(*) AS c FROM users");
+  if (Number(users[0]?.c) > 0) return;
 
-  const insUser = d.prepare(
-    "INSERT INTO users (username, password_hash, name, role) VALUES (?,?,?,?)"
+  await rawQuery(
+    "INSERT INTO users (username, password_hash, name, role) VALUES (?,?,?,?)",
+    ["admin", bcrypt.hashSync("admin1234", 10), "ครูผู้ดูแล", "teacher"]
   );
-  insUser.run("admin", bcrypt.hashSync("admin1234", 10), "ครูผู้ดูแล", "teacher");
-  insUser.run("student", bcrypt.hashSync("student1234", 10), "นักเรียนทดลอง", "student");
-
-  const insLesson = d.prepare(
-    "INSERT INTO lessons (title, content, sort_order) VALUES (?,?,?)"
-  );
-  const insQ = d.prepare(
-    "INSERT INTO quiz_questions (lesson_id, question, choices, answer_index, explanation) VALUES (?,?,?,?,?)"
+  await rawQuery(
+    "INSERT INTO users (username, password_hash, name, role) VALUES (?,?,?,?)",
+    ["student", bcrypt.hashSync("student1234", 10), "นักเรียนทดลอง", "student"]
   );
 
   const lessons: { title: string; content: string; questions: [string, string[], number, string][] }[] = [
@@ -412,18 +547,18 @@ else:
   ];
 
   for (const [i, l] of lessons.entries()) {
-    const r = insLesson.run(l.title, l.content, i + 1);
-    for (const [q, choices, ans, exp] of l.questions) {
-      insQ.run(r.lastInsertRowid, q, JSON.stringify(choices), ans, exp);
+    const inserted = await rawQuery<{ id: number }>(
+      "INSERT INTO lessons (title, content, sort_order) VALUES (?,?,?) RETURNING id",
+      [l.title, l.content, i + 1]
+    );
+    const lessonId = Number(inserted[0].id);
+    for (const [question, choices, ans, exp] of l.questions) {
+      await rawQuery(
+        "INSERT INTO quiz_questions (lesson_id, question, choices, answer_index, explanation) VALUES (?,?,?,?,?)",
+        [lessonId, question, JSON.stringify(choices), ans, exp]
+      );
     }
   }
-
-  const insProblem = d.prepare(
-    "INSERT INTO problems (title, description, difficulty, starter_code, sort_order) VALUES (?,?,?,?,?)"
-  );
-  const insTC = d.prepare(
-    "INSERT INTO test_cases (problem_id, input, expected_output, hidden) VALUES (?,?,?,?)"
-  );
 
   const problems: {
     title: string; desc: string; diff: string; starter: string;
@@ -587,9 +722,16 @@ Buzz
   ];
 
   for (const [i, p] of problems.entries()) {
-    const r = insProblem.run(p.title, p.desc, p.diff, p.starter, i + 1);
+    const inserted = await rawQuery<{ id: number }>(
+      "INSERT INTO problems (title, description, difficulty, starter_code, sort_order) VALUES (?,?,?,?,?) RETURNING id",
+      [p.title, p.desc, p.diff, p.starter, i + 1]
+    );
+    const problemId = Number(inserted[0].id);
     for (const [input, output, hidden] of p.tests) {
-      insTC.run(r.lastInsertRowid, input, output, hidden);
+      await rawQuery(
+        "INSERT INTO test_cases (problem_id, input, expected_output, hidden) VALUES (?,?,?,?)",
+        [problemId, input, output, hidden]
+      );
     }
   }
 }

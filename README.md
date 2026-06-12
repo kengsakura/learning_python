@@ -39,34 +39,35 @@ npm run dev
 
 ข้อมูลตัวอย่าง: บทเรียน 6 บท (print, ตัวแปร, if, ลูป, ลิสต์, ฟังก์ชัน) + โจทย์ 9 ข้อ 3 ระดับ
 
-## โหมด dev / production
+## ฐานข้อมูล: dev ใช้ SQLite / production ใช้ Supabase
 
-- **dev** (`npm run dev`) ใช้ `data/dev.db`
-- **production** (`npm run build && npm start`) ใช้ `data/prod.db`
-- ตั้งค่าผ่าน env ได้: `DB_PATH`, `AUTH_SECRET` (ดู `.env.example`)
-- production จริงต้องตั้ง `AUTH_SECRET` เป็นค่าสุ่มยาว ๆ เสมอ
+ระบบเลือก backend อัตโนมัติจาก env (`lib/db.ts`):
+
+| สภาพแวดล้อม | เงื่อนไข | ฐานข้อมูล |
+|--------------|----------|-----------|
+| dev ในเครื่อง | ไม่มี `POSTGRES_URL` | SQLite `data/dev.db` (สร้าง+seed อัตโนมัติ) |
+| production ในเครื่อง | ไม่มี `POSTGRES_URL` | SQLite `data/prod.db` |
+| Vercel | มี `POSTGRES_URL` จาก Supabase integration | Postgres บน Supabase (สร้างตาราง+seed อัตโนมัติครั้งแรก) |
+
+- SQL ทุกคำสั่งเขียนครั้งเดียวด้วย placeholder `?` แล้วแปลงเป็น `$1..$n` ให้เองตอนใช้ Postgres
+- ตั้งค่าเพิ่มเติม: `AUTH_SECRET` (จำเป็นใน production), `DB_PATH` (ดู `.env.example`)
 
 ## นำขึ้น Vercel
 
-⚠️ Vercel เป็น serverless — **เขียนไฟล์ SQLite ถาวรไม่ได้** จึงต้องย้ายฐานข้อมูลไป Supabase (หรือ Postgres อื่น) ก่อน deploy จริง
+โปรเจกต์นี้ deploy อยู่บน Vercel + Supabase แล้ว ขั้นตอนถ้าทำใหม่:
 
-โค้ดถูกออกแบบให้ย้ายง่าย: query ทั้งหมดรวมอยู่ที่
-- `lib/db.ts` (schema + seed)
-- `lib/queries.ts` (data-access layer ของหน้าเว็บ)
-- `app/api/**` (จุดเขียนข้อมูล)
-
-แนวทางย้ายไป Supabase:
-1. สร้างโปรเจกต์ Supabase แล้วรัน schema เดียวกัน (แก้ `INTEGER PRIMARY KEY AUTOINCREMENT` → `BIGSERIAL PRIMARY KEY`, `TEXT DEFAULT (datetime('now'))` → `TIMESTAMPTZ DEFAULT now()`)
-2. เปลี่ยน `lib/db.ts` / `lib/queries.ts` ให้เรียกผ่าน `@supabase/supabase-js` หรือ `postgres` client
-3. ตั้ง env บน Vercel: `AUTH_SECRET`, `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`
-4. ส่วนการรันโค้ด Python ไม่ต้องแก้ — Pyodide รันในเบราว์เซอร์ของผู้ใช้อยู่แล้ว
+1. `vercel` เชื่อมโปรเจกต์ (มี `vercel.json` บังคับ framework เป็น Next.js ให้แล้ว)
+2. เพิ่ม **Supabase integration** จาก Vercel Marketplace (หรือ `vercel integration add supabase`) — จะได้ env `POSTGRES_URL` มาอัตโนมัติ
+3. ตั้ง `AUTH_SECRET`: `openssl rand -hex 32 | vercel env add AUTH_SECRET production`
+4. `vercel --prod` — เปิดใช้งานครั้งแรกระบบจะสร้างตารางและ seed ข้อมูลตัวอย่างให้เอง
+5. ส่วนการรันโค้ด Python ไม่ต้องตั้งค่าอะไร — Pyodide รันในเบราว์เซอร์ของผู้ใช้
 
 ## สถาปัตยกรรม
 
 | ส่วน | เทคโนโลยี |
 |------|-----------|
 | เฟรมเวิร์ก | Next.js (App Router) + TypeScript + Tailwind CSS |
-| ฐานข้อมูล | SQLite (better-sqlite3) — เปลี่ยนเป็น Supabase ได้ |
+| ฐานข้อมูล | SQLite (dev) / Postgres บน Supabase (production) — เลือกอัตโนมัติจาก env |
 | ยืนยันตัวตน | JWT cookie (jose) + bcrypt |
 | รันโค้ด Python | Pyodide ใน Web Worker (`public/py-worker.js`) |
 | เขียนโค้ด | CodeMirror 6 (`@uiw/react-codemirror`) |

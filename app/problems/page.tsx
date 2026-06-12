@@ -28,8 +28,8 @@ export default async function ProblemsPage({
   if (!s) redirect("/login");
 
   const { diff = "all" } = await searchParams;
-  const problems = listProblems().filter((p) => diff === "all" || p.difficulty === diff);
-  const solved = s.role === "student" ? getSolvedProblems(s.userId) : new Set<number>();
+  const problems = (await listProblems()).filter((p) => diff === "all" || p.difficulty === diff);
+  const solved = s.role === "student" ? await getSolvedProblems(s.userId) : new Set<number>();
 
   return (
     <AppShell session={s} active="/problems">

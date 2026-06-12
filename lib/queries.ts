@@ -1,6 +1,6 @@
 // Data-access layer — รวม query ที่หน้าเว็บใช้ไว้ที่เดียว
-// ถ้าจะย้ายไป Supabase (production) ให้แก้ฟังก์ชันในไฟล์นี้กับ API routes เป็นหลัก
-import { db } from "./db";
+// ทำงานได้ทั้ง SQLite (dev) และ Postgres/Supabase (production) ผ่าน q()/qOne() ใน lib/db.ts
+import { q, qOne } from "./db";
 
 export type Lesson = {
   id: number;
@@ -37,55 +37,56 @@ export type TestCase = {
   hidden: number;
 };
 
-export function listLessons(includeUnpublished = false): Lesson[] {
+export async function listLessons(includeUnpublished = false): Promise<Lesson[]> {
   const where = includeUnpublished ? "" : "WHERE published = 1";
-  return db().prepare(`SELECT * FROM lessons ${where} ORDER BY sort_order, id`).all() as Lesson[];
+  return q<Lesson>(`SELECT * FROM lessons ${where} ORDER BY sort_order, id`);
 }
 
-export function getLesson(id: number): Lesson | undefined {
-  return db().prepare("SELECT * FROM lessons WHERE id = ?").get(id) as Lesson | undefined;
+export async function getLesson(id: number): Promise<Lesson | undefined> {
+  return qOne<Lesson>("SELECT * FROM lessons WHERE id = ?", [id]);
 }
 
-export function getQuestions(lessonId: number): Question[] {
-  return db()
-    .prepare("SELECT * FROM quiz_questions WHERE lesson_id = ? ORDER BY id")
-    .all(lessonId) as Question[];
+export async function getQuestions(lessonId: number): Promise<Question[]> {
+  return q<Question>("SELECT * FROM quiz_questions WHERE lesson_id = ? ORDER BY id", [lessonId]);
 }
 
-export function listProblems(includeUnpublished = false): Problem[] {
+export async function listProblems(includeUnpublished = false): Promise<Problem[]> {
   const where = includeUnpublished ? "" : "WHERE published = 1";
-  return db().prepare(`SELECT * FROM problems ${where} ORDER BY sort_order, id`).all() as Problem[];
+  return q<Problem>(`SELECT * FROM problems ${where} ORDER BY sort_order, id`);
 }
 
-export function getProblem(id: number): Problem | undefined {
-  return db().prepare("SELECT * FROM problems WHERE id = ?").get(id) as Problem | undefined;
+export async function getProblem(id: number): Promise<Problem | undefined> {
+  return qOne<Problem>("SELECT * FROM problems WHERE id = ?", [id]);
 }
 
-export function getTestCases(problemId: number): TestCase[] {
-  return db()
-    .prepare("SELECT * FROM test_cases WHERE problem_id = ? ORDER BY id")
-    .all(problemId) as TestCase[];
+export async function getTestCases(problemId: number): Promise<TestCase[]> {
+  return q<TestCase>("SELECT * FROM test_cases WHERE problem_id = ? ORDER BY id", [problemId]);
 }
 
-export function getProgress(userId: number): Set<number> {
-  const rows = db()
-    .prepare("SELECT lesson_id FROM lesson_progress WHERE user_id = ?")
-    .all(userId) as { lesson_id: number }[];
-  return new Set(rows.map((r) => r.lesson_id));
+export async function getProgress(userId: number): Promise<Set<number>> {
+  const rows = await q<{ lesson_id: number }>(
+    "SELECT lesson_id FROM lesson_progress WHERE user_id = ?",
+    [userId]
+  );
+  return new Set(rows.map((r) => Number(r.lesson_id)));
 }
 
-export function getSolvedProblems(userId: number): Set<number> {
-  const rows = db()
-    .prepare("SELECT DISTINCT problem_id FROM submissions WHERE user_id = ? AND success = 1")
-    .all(userId) as { problem_id: number }[];
-  return new Set(rows.map((r) => r.problem_id));
+export async function getSolvedProblems(userId: number): Promise<Set<number>> {
+  const rows = await q<{ problem_id: number }>(
+    "SELECT DISTINCT problem_id FROM submissions WHERE user_id = ? AND success = 1",
+    [userId]
+  );
+  return new Set(rows.map((r) => Number(r.problem_id)));
 }
 
-export function getBestQuizScores(userId: number): Map<number, { score: number; total: number }> {
-  const rows = db()
-    .prepare(
-      "SELECT lesson_id, MAX(score) AS score, total FROM quiz_attempts WHERE user_id = ? GROUP BY lesson_id"
-    )
-    .all(userId) as { lesson_id: number; score: number; total: number }[];
-  return new Map(rows.map((r) => [r.lesson_id, { score: r.score, total: r.total }]));
+export async function getBestQuizScores(
+  userId: number
+): Promise<Map<number, { score: number; total: number }>> {
+  const rows = await q<{ lesson_id: number; score: number; total: number }>(
+    "SELECT lesson_id, MAX(score) AS score, total FROM quiz_attempts WHERE user_id = ? GROUP BY lesson_id, total",
+    [userId]
+  );
+  return new Map(
+    rows.map((r) => [Number(r.lesson_id), { score: Number(r.score), total: Number(r.total) }])
+  );
 }
