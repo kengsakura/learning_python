@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import AppShell from "@/components/AppShell";
 import { getSession } from "@/lib/auth";
@@ -51,10 +52,12 @@ export default async function AdminStudentsPage() {
           </thead>
           <tbody>
             {students.map((st) => (
-              <tr key={st.id} className="border-t border-slate-100">
+              <tr key={st.id} className="border-t border-slate-100 hover:bg-slate-50">
                 <td className="px-4 py-2.5">
-                  <div className="font-medium">{st.name}</div>
-                  <div className="text-xs text-slate-400">@{st.username}</div>
+                  <Link href={`/admin/students/${st.id}`} className="block">
+                    <div className="font-medium text-indigo-700 hover:underline">{st.name}</div>
+                    <div className="text-xs text-slate-400">@{st.username}</div>
+                  </Link>
                 </td>
                 <td className="text-center px-3 py-2.5">
                   {st.lessons_done}/{totals.lessons}
@@ -75,8 +78,12 @@ export default async function AdminStudentsPage() {
 
       <div className="sm:hidden space-y-3">
         {students.map((st) => (
-          <div key={st.id} className="bg-white rounded-2xl border border-slate-200 p-4">
-            <div className="font-medium">{st.name}</div>
+          <Link
+            key={st.id}
+            href={`/admin/students/${st.id}`}
+            className="block bg-white rounded-2xl border border-slate-200 p-4 hover:border-indigo-300"
+          >
+            <div className="font-medium text-indigo-700">{st.name} ›</div>
             <div className="text-xs text-slate-400 mb-2">@{st.username}</div>
             <div className="grid grid-cols-2 gap-2 text-sm">
               <div>📘 บทเรียน {st.lessons_done}/{totals.lessons}</div>
@@ -84,7 +91,7 @@ export default async function AdminStudentsPage() {
               <div>📨 ส่ง {st.attempts} ครั้ง</div>
               <div>📝 ควิซ {st.best_quiz != null ? `${Math.round(st.best_quiz)}%` : "—"}</div>
             </div>
-          </div>
+          </Link>
         ))}
         {students.length === 0 && <p className="text-sm text-slate-400">ยังไม่มีนักเรียนสมัคร</p>}
       </div>

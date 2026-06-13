@@ -89,6 +89,11 @@ export async function qOne<T = Row>(sql: string, params: unknown[] = []): Promis
   return rows[0];
 }
 
+/** เวลาปัจจุบัน UTC รูปแบบ 'YYYY-MM-DD HH:MM:SS' — ตรงกับ datetime('now') และ PG_NOW */
+export function nowStr(): string {
+  return new Date().toISOString().slice(0, 19).replace("T", " ");
+}
+
 async function init() {
   await migrate();
   await seedUsers();
@@ -165,6 +170,14 @@ const SQLITE_SCHEMA = `
     success INTEGER NOT NULL DEFAULT 0,
     created_at TEXT NOT NULL DEFAULT (datetime('now'))
   );
+  CREATE TABLE IF NOT EXISTS code_drafts (
+    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    problem_id INTEGER NOT NULL REFERENCES problems(id) ON DELETE CASCADE,
+    code TEXT NOT NULL DEFAULT '',
+    mode TEXT NOT NULL DEFAULT 'code',
+    updated_at TEXT NOT NULL DEFAULT (datetime('now')),
+    PRIMARY KEY (user_id, problem_id)
+  );
 `;
 
 // โครงสร้างเดียวกันในไวยากรณ์ Postgres — เก็บวันที่เป็น TEXT รูปแบบเดียวกับ SQLite
@@ -238,6 +251,14 @@ const PG_SCHEMA = `
     total INTEGER NOT NULL,
     success INTEGER NOT NULL DEFAULT 0,
     created_at TEXT NOT NULL DEFAULT ${PG_NOW}
+  );
+  CREATE TABLE IF NOT EXISTS code_drafts (
+    user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    problem_id BIGINT NOT NULL REFERENCES problems(id) ON DELETE CASCADE,
+    code TEXT NOT NULL DEFAULT '',
+    mode TEXT NOT NULL DEFAULT 'code',
+    updated_at TEXT NOT NULL DEFAULT ${PG_NOW},
+    PRIMARY KEY (user_id, problem_id)
   );
 `;
 

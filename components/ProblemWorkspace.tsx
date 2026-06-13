@@ -1,10 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
-import CodeMirror from "@uiw/react-codemirror";
-import { python } from "@codemirror/lang-python";
 import Markdown from "./Markdown";
+import CodeEditor from "./CodeEditor";
 import { usePyRunner, type TestResult } from "./usePyRunner";
 
 const BlocklyEditor = dynamic(() => import("./BlocklyEditor"), {
@@ -35,15 +34,21 @@ export default function ProblemWorkspace({
   problem,
   tests,
   alreadySolved,
+  initialCode,
+  initialMode,
+  saveDraft = false,
 }: {
   problem: ProblemData;
   tests: Test[];
   alreadySolved: boolean;
+  initialCode?: string | null;
+  initialMode?: string;
+  saveDraft?: boolean;
 }) {
   const { status, runTests, runOnce } = usePyRunner();
-  const [mode, setMode] = useState<"code" | "blocks">("code");
+  const [mode, setMode] = useState<"code" | "blocks">(initialMode === "blocks" ? "blocks" : "code");
   const [mobileTab, setMobileTab] = useState<"desc" | "editor">("desc");
-  const [code, setCode] = useState(problem.starter_code);
+  const [code, setCode] = useState(initialCode ?? problem.starter_code);
   const [blockCode, setBlockCode] = useState("");
   const [results, setResults] = useState<TestResult[] | null>(null);
   const [freeInput, setFreeInput] = useState("");
@@ -51,10 +56,35 @@ export default function ProblemWorkspace({
   const [runError, setRunError] = useState<string | null>(null);
   const [solved, setSolved] = useState(alreadySolved);
   const [submitting, setSubmitting] = useState(false);
+  const [saveState, setSaveState] = useState<"idle" | "saving" | "saved">("idle");
 
   const activeCode = mode === "blocks" ? blockCode : code;
   const visibleTests = useMemo(() => tests.filter((t) => !t.hidden), [tests]);
   const busy = status !== "ready";
+
+  // autosave โค้ดที่เขียน (เฉพาะโหมดเขียนโค้ด) แบบหน่วงเวลา
+  const skipFirstSave = useRef(true);
+  useEffect(() => {
+    if (!saveDraft || mode !== "code") return;
+    if (skipFirstSave.current) {
+      skipFirstSave.current = false;
+      return;
+    }
+    setSaveState("saving");
+    const t = setTimeout(async () => {
+      try {
+        await fetch("/api/drafts", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ problemId: problem.id, code, mode }),
+        });
+        setSaveState("saved");
+      } catch {
+        setSaveState("idle");
+      }
+    }, 800);
+    return () => clearTimeout(t);
+  }, [code, mode, problem.id, saveDraft]);
 
   async function handleRunTests() {
     setRunError(null);
@@ -184,17 +214,16 @@ export default function ProblemWorkspace({
                   {label}
                 </button>
               ))}
+              {saveDraft && mode === "code" && (
+                <span className="ml-auto pr-2 text-xs text-slate-400">
+                  {saveState === "saving" && "💾 กำลังบันทึก…"}
+                  {saveState === "saved" && "✓ บันทึกโค้ดแล้ว"}
+                </span>
+              )}
             </div>
 
             {mode === "code" ? (
-              <CodeMirror
-                value={code}
-                onChange={setCode}
-                extensions={[python()]}
-                height="320px"
-                basicSetup={{ lineNumbers: true, foldGutter: false }}
-                style={{ fontSize: 14 }}
-              />
+              <CodeEditor value={code} onChange={setCode} height="320px" />
             ) : (
               <div>
                 <div className="h-[380px]">

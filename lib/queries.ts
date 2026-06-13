@@ -79,6 +79,32 @@ export async function getSolvedProblems(userId: number): Promise<Set<number>> {
   return new Set(rows.map((r) => Number(r.problem_id)));
 }
 
+// สถานะโจทย์รายข้อของนักเรียน: solved = ผ่านแล้ว, attempted = ส่งแล้วแต่ยังไม่ผ่าน
+export async function getProblemStatuses(
+  userId: number
+): Promise<Map<number, "solved" | "attempted">> {
+  const rows = await q<{ problem_id: number; solved: number }>(
+    "SELECT problem_id, MAX(success) AS solved FROM submissions WHERE user_id = ? GROUP BY problem_id",
+    [userId]
+  );
+  const m = new Map<number, "solved" | "attempted">();
+  for (const r of rows) {
+    m.set(Number(r.problem_id), Number(r.solved) === 1 ? "solved" : "attempted");
+  }
+  return m;
+}
+
+// โค้ดที่นักเรียนเขียนค้างไว้ (autosave) ของโจทย์ข้อหนึ่ง
+export async function getDraft(
+  userId: number,
+  problemId: number
+): Promise<{ code: string; mode: string } | undefined> {
+  return qOne<{ code: string; mode: string }>(
+    "SELECT code, mode FROM code_drafts WHERE user_id = ? AND problem_id = ?",
+    [userId, problemId]
+  );
+}
+
 export async function getBestQuizScores(
   userId: number
 ): Promise<Map<number, { score: number; total: number }>> {

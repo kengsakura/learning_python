@@ -3,7 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import AppShell from "@/components/AppShell";
 import ProblemWorkspace from "@/components/ProblemWorkspace";
 import { getSession } from "@/lib/auth";
-import { getProblem, getTestCases, getSolvedProblems } from "@/lib/queries";
+import { getProblem, getTestCases, getSolvedProblems, getDraft } from "@/lib/queries";
 
 export const dynamic = "force-dynamic";
 
@@ -16,8 +16,9 @@ export default async function ProblemPage({ params }: { params: Promise<{ id: st
   if (!problem || (!problem.published && s.role !== "teacher")) notFound();
 
   const tests = await getTestCases(problem.id);
-  const solved =
-    s.role === "student" ? (await getSolvedProblems(s.userId)).has(problem.id) : false;
+  const isStudent = s.role === "student";
+  const solved = isStudent ? (await getSolvedProblems(s.userId)).has(problem.id) : false;
+  const draft = isStudent ? await getDraft(s.userId, problem.id) : undefined;
 
   return (
     <AppShell session={s} active="/problems">
@@ -36,6 +37,9 @@ export default async function ProblemPage({ params }: { params: Promise<{ id: st
         }}
         tests={tests}
         alreadySolved={solved}
+        initialCode={draft?.code}
+        initialMode={draft?.mode}
+        saveDraft={isStudent}
       />
     </AppShell>
   );
