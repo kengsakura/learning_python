@@ -1,0 +1,2527 @@
+[
+ {
+  "title": "แสดงข้อความแรก",
+  "description": "แสดงข้อความ `Hello, Python!` ออกทางหน้าจอ (โจทย์ข้อนี้ไม่มี input)\n\n**Output:** `Hello, Python!` หนึ่งบรรทัด\n\n### ตัวอย่าง\nOutput:\n```\nHello, Python!\n```",
+  "difficulty": "easy",
+  "starter_code": "# พิมพ์ข้อความด้วย print\n",
+  "tests": [
+   {
+    "input": "",
+    "expected_output": "Hello, Python!",
+    "hidden": 0
+   }
+  ]
+ },
+ {
+  "title": "ทักทายตามชื่อ",
+  "description": "รับชื่อหนึ่งบรรทัด แล้วแสดงคำทักทาย\n\n**Input:** ชื่อ 1 บรรทัด\n**Output:** `สวัสดี <ชื่อ>`\n\n### ตัวอย่าง\nInput:\n```\nมะลิ\n```\nOutput:\n```\nสวัสดี มะลิ\n```",
+  "difficulty": "easy",
+  "starter_code": "name = input()\n# เขียนต่อตรงนี้\n",
+  "tests": [
+   {
+    "input": "มะลิ",
+    "expected_output": "สวัสดี มะลิ",
+    "hidden": 0
+   },
+   {
+    "input": "Python",
+    "expected_output": "สวัสดี Python",
+    "hidden": 0
+   },
+   {
+    "input": "ครูเพทาย",
+    "expected_output": "สวัสดี ครูเพทาย",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "บวกเลขสองจำนวน",
+  "description": "รับจำนวนเต็ม 2 บรรทัด แล้วแสดงผลรวม\n\n**Input:** จำนวนเต็ม a และ b บรรทัดละ 1 ค่า\n**Output:** ผลรวม a + b\n\n### ตัวอย่าง\nInput:\n```\n3\n4\n```\nOutput:\n```\n7\n```",
+  "difficulty": "easy",
+  "starter_code": "a = int(input())\nb = int(input())\n# เขียนต่อตรงนี้\n",
+  "tests": [
+   {
+    "input": "3\n4",
+    "expected_output": "7",
+    "hidden": 0
+   },
+   {
+    "input": "10\n-2",
+    "expected_output": "8",
+    "hidden": 0
+   },
+   {
+    "input": "1000\n2345",
+    "expected_output": "3345",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ลบเลขสองจำนวน",
+  "description": "รับจำนวนเต็ม a และ b แล้วแสดงผลลบ a - b\n\n**Input:** จำนวนเต็ม 2 บรรทัด\n**Output:** ผลลบ\n\n### ตัวอย่าง\nInput:\n```\n10\n4\n```\nOutput:\n```\n6\n```",
+  "difficulty": "easy",
+  "starter_code": "a = int(input())\nb = int(input())\n",
+  "tests": [
+   {
+    "input": "10\n4",
+    "expected_output": "6",
+    "hidden": 0
+   },
+   {
+    "input": "3\n8",
+    "expected_output": "-5",
+    "hidden": 0
+   },
+   {
+    "input": "-5\n-9",
+    "expected_output": "4",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "คูณเลขสองจำนวน",
+  "description": "รับจำนวนเต็ม a และ b แล้วแสดงผลคูณ\n\n**Input:** จำนวนเต็ม 2 บรรทัด\n**Output:** ผลคูณ\n\n### ตัวอย่าง\nInput:\n```\n6\n7\n```\nOutput:\n```\n42\n```",
+  "difficulty": "easy",
+  "starter_code": "a = int(input())\nb = int(input())\n",
+  "tests": [
+   {
+    "input": "6\n7",
+    "expected_output": "42",
+    "hidden": 0
+   },
+   {
+    "input": "12\n0",
+    "expected_output": "0",
+    "hidden": 0
+   },
+   {
+    "input": "-3\n9",
+    "expected_output": "-27",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "หารปัดเศษทิ้ง",
+  "description": "รับจำนวนเต็มบวก a และ b แล้วแสดงผลหารแบบปัดเศษทิ้ง (ใช้ `//`)\n\n**Input:** จำนวนเต็มบวก 2 บรรทัด\n**Output:** a // b\n\n### ตัวอย่าง\nInput:\n```\n17\n5\n```\nOutput:\n```\n3\n```",
+  "difficulty": "easy",
+  "starter_code": "a = int(input())\nb = int(input())\n",
+  "tests": [
+   {
+    "input": "17\n5",
+    "expected_output": "3",
+    "hidden": 0
+   },
+   {
+    "input": "20\n4",
+    "expected_output": "5",
+    "hidden": 0
+   },
+   {
+    "input": "7\n10",
+    "expected_output": "0",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "เศษจากการหาร",
+  "description": "รับจำนวนเต็มบวก a และ b แล้วแสดงเศษจากการหาร (ใช้ `%`)\n\n**Input:** จำนวนเต็มบวก 2 บรรทัด\n**Output:** a % b\n\n### ตัวอย่าง\nInput:\n```\n17\n5\n```\nOutput:\n```\n2\n```",
+  "difficulty": "easy",
+  "starter_code": "a = int(input())\nb = int(input())\n",
+  "tests": [
+   {
+    "input": "17\n5",
+    "expected_output": "2",
+    "hidden": 0
+   },
+   {
+    "input": "20\n4",
+    "expected_output": "0",
+    "hidden": 0
+   },
+   {
+    "input": "9\n2",
+    "expected_output": "1",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ยกกำลัง",
+  "description": "รับฐาน a และเลขชี้กำลัง b แล้วแสดงค่า a ยกกำลัง b (ใช้ `**`)\n\n**Input:** จำนวนเต็ม 2 บรรทัด\n**Output:** a ** b\n\n### ตัวอย่าง\nInput:\n```\n2\n10\n```\nOutput:\n```\n1024\n```",
+  "difficulty": "easy",
+  "starter_code": "a = int(input())\nb = int(input())\n",
+  "tests": [
+   {
+    "input": "2\n10",
+    "expected_output": "1024",
+    "hidden": 0
+   },
+   {
+    "input": "5\n3",
+    "expected_output": "125",
+    "hidden": 0
+   },
+   {
+    "input": "7\n0",
+    "expected_output": "1",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "บวกเลขสามจำนวน",
+  "description": "รับจำนวนเต็ม 3 บรรทัด แล้วแสดงผลรวมทั้งหมด\n\n**Input:** จำนวนเต็ม 3 บรรทัด\n**Output:** ผลรวม\n\n### ตัวอย่าง\nInput:\n```\n1\n2\n3\n```\nOutput:\n```\n6\n```",
+  "difficulty": "easy",
+  "starter_code": "",
+  "tests": [
+   {
+    "input": "1\n2\n3",
+    "expected_output": "6",
+    "hidden": 0
+   },
+   {
+    "input": "10\n20\n30",
+    "expected_output": "60",
+    "hidden": 0
+   },
+   {
+    "input": "-1\n-2\n3",
+    "expected_output": "0",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ค่าเฉลี่ยสองจำนวน",
+  "description": "รับจำนวนเต็ม a และ b แล้วแสดงค่าเฉลี่ย (a + b) / 2\n\n**Input:** จำนวนเต็ม 2 บรรทัด\n**Output:** ค่าเฉลี่ย (เป็นทศนิยม)\n\n### ตัวอย่าง\nInput:\n```\n7\n8\n```\nOutput:\n```\n7.5\n```",
+  "difficulty": "easy",
+  "starter_code": "a = int(input())\nb = int(input())\n",
+  "tests": [
+   {
+    "input": "7\n8",
+    "expected_output": "7.5",
+    "hidden": 0
+   },
+   {
+    "input": "4\n4",
+    "expected_output": "4.0",
+    "hidden": 0
+   },
+   {
+    "input": "1\n100",
+    "expected_output": "50.5",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "พื้นที่สี่เหลี่ยมผืนผ้า",
+  "description": "รับความกว้างและความยาว (จำนวนเต็ม) แล้วแสดงพื้นที่\n\n**Input:** กว้าง และ ยาว บรรทัดละค่า\n**Output:** พื้นที่ (กว้าง × ยาว)\n\n### ตัวอย่าง\nInput:\n```\n4\n5\n```\nOutput:\n```\n20\n```",
+  "difficulty": "easy",
+  "starter_code": "w = int(input())\nh = int(input())\n",
+  "tests": [
+   {
+    "input": "4\n5",
+    "expected_output": "20",
+    "hidden": 0
+   },
+   {
+    "input": "10\n3",
+    "expected_output": "30",
+    "hidden": 0
+   },
+   {
+    "input": "7\n7",
+    "expected_output": "49",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "เส้นรอบรูปสี่เหลี่ยมผืนผ้า",
+  "description": "รับความกว้างและความยาว แล้วแสดงความยาวเส้นรอบรูป\n\n**Input:** กว้าง และ ยาว บรรทัดละค่า\n**Output:** เส้นรอบรูป 2 × (กว้าง + ยาว)\n\n### ตัวอย่าง\nInput:\n```\n4\n5\n```\nOutput:\n```\n18\n```",
+  "difficulty": "easy",
+  "starter_code": "w = int(input())\nh = int(input())\n",
+  "tests": [
+   {
+    "input": "4\n5",
+    "expected_output": "18",
+    "hidden": 0
+   },
+   {
+    "input": "10\n3",
+    "expected_output": "26",
+    "hidden": 0
+   },
+   {
+    "input": "1\n1",
+    "expected_output": "4",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "พื้นที่สามเหลี่ยม",
+  "description": "รับความยาวฐานและความสูง (จำนวนเต็ม) แล้วแสดงพื้นที่ = ฐาน × สูง / 2\n\n**Input:** ฐาน และ สูง บรรทัดละค่า\n**Output:** พื้นที่ (เป็นทศนิยม)\n\n### ตัวอย่าง\nInput:\n```\n10\n4\n```\nOutput:\n```\n20.0\n```",
+  "difficulty": "easy",
+  "starter_code": "b = int(input())\nh = int(input())\n",
+  "tests": [
+   {
+    "input": "10\n4",
+    "expected_output": "20.0",
+    "hidden": 0
+   },
+   {
+    "input": "5\n3",
+    "expected_output": "7.5",
+    "hidden": 0
+   },
+   {
+    "input": "7\n2",
+    "expected_output": "7.0",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "เซลเซียสเป็นฟาเรนไฮต์",
+  "description": "รับอุณหภูมิเซลเซียส (จำนวนเต็ม) แล้วแปลงเป็นฟาเรนไฮต์ด้วยสูตร F = C × 9 / 5 + 32\n\n**Input:** จำนวนเต็ม 1 ค่า\n**Output:** อุณหภูมิฟาเรนไฮต์ (เป็นทศนิยม)\n\n### ตัวอย่าง\nInput:\n```\n37\n```\nOutput:\n```\n98.6\n```",
+  "difficulty": "easy",
+  "starter_code": "c = int(input())\n",
+  "tests": [
+   {
+    "input": "37",
+    "expected_output": "98.6",
+    "hidden": 0
+   },
+   {
+    "input": "0",
+    "expected_output": "32.0",
+    "hidden": 0
+   },
+   {
+    "input": "100",
+    "expected_output": "212.0",
+    "hidden": 1
+   },
+   {
+    "input": "-40",
+    "expected_output": "-40.0",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "หลักหน่วย",
+  "description": "รับจำนวนเต็มบวก n แล้วแสดงเลขหลักหน่วยของ n (เคล็ดลับ: ใช้ `% 10`)\n\n**Input:** จำนวนเต็มบวก n\n**Output:** เลขหลักหน่วย\n\n### ตัวอย่าง\nInput:\n```\n123\n```\nOutput:\n```\n3\n```",
+  "difficulty": "easy",
+  "starter_code": "n = int(input())\n",
+  "tests": [
+   {
+    "input": "123",
+    "expected_output": "3",
+    "hidden": 0
+   },
+   {
+    "input": "70",
+    "expected_output": "0",
+    "hidden": 0
+   },
+   {
+    "input": "9",
+    "expected_output": "9",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "เลขคู่หรือเลขคี่",
+  "description": "รับจำนวนเต็ม 1 ค่า ถ้าเป็นเลขคู่ให้แสดง `even` ถ้าเป็นเลขคี่ให้แสดง `odd`\n\n**Input:** จำนวนเต็ม n\n**Output:** `even` หรือ `odd`\n\n### ตัวอย่าง\nInput:\n```\n4\n```\nOutput:\n```\neven\n```",
+  "difficulty": "easy",
+  "starter_code": "n = int(input())\n# เขียนต่อตรงนี้\n",
+  "tests": [
+   {
+    "input": "4",
+    "expected_output": "even",
+    "hidden": 0
+   },
+   {
+    "input": "7",
+    "expected_output": "odd",
+    "hidden": 0
+   },
+   {
+    "input": "0",
+    "expected_output": "even",
+    "hidden": 1
+   },
+   {
+    "input": "-3",
+    "expected_output": "odd",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "บวก ลบ หรือศูนย์",
+  "description": "รับจำนวนเต็ม n ถ้ามากกว่า 0 แสดง `positive` น้อยกว่า 0 แสดง `negative` เท่ากับ 0 แสดง `zero`\n\n**Input:** จำนวนเต็ม n\n**Output:** `positive` / `negative` / `zero`\n\n### ตัวอย่าง\nInput:\n```\n5\n```\nOutput:\n```\npositive\n```",
+  "difficulty": "easy",
+  "starter_code": "n = int(input())\n",
+  "tests": [
+   {
+    "input": "5",
+    "expected_output": "positive",
+    "hidden": 0
+   },
+   {
+    "input": "-2",
+    "expected_output": "negative",
+    "hidden": 0
+   },
+   {
+    "input": "0",
+    "expected_output": "zero",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ค่ามากสุดของสองจำนวน",
+  "description": "รับจำนวนเต็ม a และ b แล้วแสดงค่าที่มากกว่า\n\n**Input:** จำนวนเต็ม 2 บรรทัด\n**Output:** ค่าที่มากกว่า\n\n### ตัวอย่าง\nInput:\n```\n3\n9\n```\nOutput:\n```\n9\n```",
+  "difficulty": "easy",
+  "starter_code": "a = int(input())\nb = int(input())\n",
+  "tests": [
+   {
+    "input": "3\n9",
+    "expected_output": "9",
+    "hidden": 0
+   },
+   {
+    "input": "12\n5",
+    "expected_output": "12",
+    "hidden": 0
+   },
+   {
+    "input": "-1\n-7",
+    "expected_output": "-1",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ค่ามากสุดของสามจำนวน",
+  "description": "รับจำนวนเต็ม 3 บรรทัด แล้วแสดงค่าที่มากที่สุด\n\n**Input:** จำนวนเต็ม 3 บรรทัด\n**Output:** ค่ามากสุด\n\n### ตัวอย่าง\nInput:\n```\n3\n9\n5\n```\nOutput:\n```\n9\n```",
+  "difficulty": "easy",
+  "starter_code": "",
+  "tests": [
+   {
+    "input": "3\n9\n5",
+    "expected_output": "9",
+    "hidden": 0
+   },
+   {
+    "input": "1\n1\n1",
+    "expected_output": "1",
+    "hidden": 0
+   },
+   {
+    "input": "-5\n-2\n-9",
+    "expected_output": "-2",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ค่าสัมบูรณ์",
+  "description": "รับจำนวนเต็ม n แล้วแสดงค่าสัมบูรณ์ (ระยะห่างจากศูนย์)\n\n**Input:** จำนวนเต็ม n\n**Output:** |n|\n\n### ตัวอย่าง\nInput:\n```\n-7\n```\nOutput:\n```\n7\n```",
+  "difficulty": "easy",
+  "starter_code": "n = int(input())\n",
+  "tests": [
+   {
+    "input": "-7",
+    "expected_output": "7",
+    "hidden": 0
+   },
+   {
+    "input": "12",
+    "expected_output": "12",
+    "hidden": 0
+   },
+   {
+    "input": "0",
+    "expected_output": "0",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "สลับสองค่า",
+  "description": "รับจำนวนเต็ม a และ b แล้วแสดงผลสลับกัน: b ก่อนแล้วค่อย a บรรทัดละค่า\n\n**Input:** จำนวนเต็ม 2 บรรทัด\n**Output:** b และ a บรรทัดละค่า\n\n### ตัวอย่าง\nInput:\n```\n1\n2\n```\nOutput:\n```\n2\n1\n```",
+  "difficulty": "easy",
+  "starter_code": "a = int(input())\nb = int(input())\n",
+  "tests": [
+   {
+    "input": "1\n2",
+    "expected_output": "2\n1",
+    "hidden": 0
+   },
+   {
+    "input": "99\n-5",
+    "expected_output": "-5\n99",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "เท่ากันหรือไม่",
+  "description": "รับจำนวนเต็ม a และ b ถ้าเท่ากันแสดง `equal` ไม่เท่ากันแสดง `not equal`\n\n**Input:** จำนวนเต็ม 2 บรรทัด\n**Output:** `equal` หรือ `not equal`\n\n### ตัวอย่าง\nInput:\n```\n5\n5\n```\nOutput:\n```\nequal\n```",
+  "difficulty": "easy",
+  "starter_code": "a = int(input())\nb = int(input())\n",
+  "tests": [
+   {
+    "input": "5\n5",
+    "expected_output": "equal",
+    "hidden": 0
+   },
+   {
+    "input": "3\n7",
+    "expected_output": "not equal",
+    "hidden": 0
+   },
+   {
+    "input": "-1\n1",
+    "expected_output": "not equal",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "หารด้วย 3 ลงตัวไหม",
+  "description": "รับจำนวนเต็ม n ถ้าหารด้วย 3 ลงตัวแสดง `yes` ไม่ลงตัวแสดง `no`\n\n**Input:** จำนวนเต็ม n\n**Output:** `yes` หรือ `no`\n\n### ตัวอย่าง\nInput:\n```\n9\n```\nOutput:\n```\nyes\n```",
+  "difficulty": "easy",
+  "starter_code": "n = int(input())\n",
+  "tests": [
+   {
+    "input": "9",
+    "expected_output": "yes",
+    "hidden": 0
+   },
+   {
+    "input": "10",
+    "expected_output": "no",
+    "hidden": 0
+   },
+   {
+    "input": "0",
+    "expected_output": "yes",
+    "hidden": 1
+   },
+   {
+    "input": "-6",
+    "expected_output": "yes",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "หารด้วยทั้ง 2 และ 3 ลงตัว",
+  "description": "รับจำนวนเต็ม n ถ้าหารด้วย 2 และ 3 ลงตัวทั้งคู่แสดง `yes` ไม่อย่างนั้นแสดง `no`\n\n**Input:** จำนวนเต็ม n\n**Output:** `yes` หรือ `no`\n\n### ตัวอย่าง\nInput:\n```\n12\n```\nOutput:\n```\nyes\n```",
+  "difficulty": "easy",
+  "starter_code": "n = int(input())\n",
+  "tests": [
+   {
+    "input": "12",
+    "expected_output": "yes",
+    "hidden": 0
+   },
+   {
+    "input": "8",
+    "expected_output": "no",
+    "hidden": 0
+   },
+   {
+    "input": "9",
+    "expected_output": "no",
+    "hidden": 1
+   },
+   {
+    "input": "6",
+    "expected_output": "yes",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ผ่านหรือตก",
+  "description": "รับคะแนนสอบ (0–100) ถ้าได้ 50 ขึ้นไปแสดง `pass` ต่ำกว่านั้นแสดง `fail`\n\n**Input:** จำนวนเต็ม 1 ค่า\n**Output:** `pass` หรือ `fail`\n\n### ตัวอย่าง\nInput:\n```\n72\n```\nOutput:\n```\npass\n```",
+  "difficulty": "easy",
+  "starter_code": "score = int(input())\n",
+  "tests": [
+   {
+    "input": "72",
+    "expected_output": "pass",
+    "hidden": 0
+   },
+   {
+    "input": "49",
+    "expected_output": "fail",
+    "hidden": 0
+   },
+   {
+    "input": "50",
+    "expected_output": "pass",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ตรวจรหัสผ่าน",
+  "description": "รหัสผ่านที่ถูกต้องคือ `python123` รับรหัสผ่านหนึ่งบรรทัด ถ้าตรงแสดง `correct` ไม่ตรงแสดง `wrong`\n\n**Input:** ข้อความ 1 บรรทัด\n**Output:** `correct` หรือ `wrong`\n\n### ตัวอย่าง\nInput:\n```\npython123\n```\nOutput:\n```\ncorrect\n```",
+  "difficulty": "easy",
+  "starter_code": "password = input()\n",
+  "tests": [
+   {
+    "input": "python123",
+    "expected_output": "correct",
+    "hidden": 0
+   },
+   {
+    "input": "Python123",
+    "expected_output": "wrong",
+    "hidden": 0
+   },
+   {
+    "input": "12345",
+    "expected_output": "wrong",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "เลขสองหลักหรือไม่",
+  "description": "รับจำนวนเต็มบวก n ถ้า n เป็นเลขสองหลัก (10–99) แสดง `yes` ไม่ใช่แสดง `no`\n\n**Input:** จำนวนเต็มบวก n\n**Output:** `yes` หรือ `no`\n\n### ตัวอย่าง\nInput:\n```\n45\n```\nOutput:\n```\nyes\n```",
+  "difficulty": "easy",
+  "starter_code": "n = int(input())\n",
+  "tests": [
+   {
+    "input": "45",
+    "expected_output": "yes",
+    "hidden": 0
+   },
+   {
+    "input": "7",
+    "expected_output": "no",
+    "hidden": 0
+   },
+   {
+    "input": "100",
+    "expected_output": "no",
+    "hidden": 1
+   },
+   {
+    "input": "10",
+    "expected_output": "yes",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "นับ 1 ถึง n",
+  "description": "รับจำนวนเต็มบวก n แล้วแสดงเลข 1 ถึง n บรรทัดละค่า\n\n**Input:** จำนวนเต็มบวก n\n**Output:** เลข 1 ถึง n บรรทัดละค่า\n\n### ตัวอย่าง\nInput:\n```\n5\n```\nOutput:\n```\n1\n2\n3\n4\n5\n```",
+  "difficulty": "easy",
+  "starter_code": "n = int(input())\n# ใช้ for กับ range\n",
+  "tests": [
+   {
+    "input": "5",
+    "expected_output": "1\n2\n3\n4\n5",
+    "hidden": 0
+   },
+   {
+    "input": "1",
+    "expected_output": "1",
+    "hidden": 0
+   },
+   {
+    "input": "10",
+    "expected_output": "1\n2\n3\n4\n5\n6\n7\n8\n9\n10",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "นับถอยหลัง",
+  "description": "รับจำนวนเต็มบวก n แล้วแสดงเลขจาก n ถอยหลังลงมาถึง 1 บรรทัดละค่า\n\n**Input:** จำนวนเต็มบวก n\n**Output:** n ถึง 1 บรรทัดละค่า\n\n### ตัวอย่าง\nInput:\n```\n5\n```\nOutput:\n```\n5\n4\n3\n2\n1\n```",
+  "difficulty": "easy",
+  "starter_code": "n = int(input())\n",
+  "tests": [
+   {
+    "input": "5",
+    "expected_output": "5\n4\n3\n2\n1",
+    "hidden": 0
+   },
+   {
+    "input": "3",
+    "expected_output": "3\n2\n1",
+    "hidden": 0
+   },
+   {
+    "input": "1",
+    "expected_output": "1",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "เลขคู่ถึง n",
+  "description": "รับจำนวนเต็มบวก n แล้วแสดงเลขคู่ทั้งหมดตั้งแต่ 2 ถึง n บรรทัดละค่า\n\n**Input:** จำนวนเต็มบวก n (n ≥ 2)\n**Output:** เลขคู่ 2, 4, 6, … ≤ n บรรทัดละค่า\n\n### ตัวอย่าง\nInput:\n```\n10\n```\nOutput:\n```\n2\n4\n6\n8\n10\n```",
+  "difficulty": "easy",
+  "starter_code": "n = int(input())\n",
+  "tests": [
+   {
+    "input": "10",
+    "expected_output": "2\n4\n6\n8\n10",
+    "hidden": 0
+   },
+   {
+    "input": "7",
+    "expected_output": "2\n4\n6",
+    "hidden": 0
+   },
+   {
+    "input": "2",
+    "expected_output": "2",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ดาว n ดวง",
+  "description": "รับจำนวนเต็มบวก n แล้วแสดงดาว `*` ติดกัน n ดวงในบรรทัดเดียว (เคล็ดลับ: `\"*\" * n`)\n\n**Input:** จำนวนเต็มบวก n\n**Output:** ดาว n ดวง\n\n### ตัวอย่าง\nInput:\n```\n5\n```\nOutput:\n```\n*****\n```",
+  "difficulty": "easy",
+  "starter_code": "n = int(input())\n",
+  "tests": [
+   {
+    "input": "5",
+    "expected_output": "*****",
+    "hidden": 0
+   },
+   {
+    "input": "1",
+    "expected_output": "*",
+    "hidden": 0
+   },
+   {
+    "input": "12",
+    "expected_output": "************",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "สี่เหลี่ยมดาว",
+  "description": "รับจำนวนเต็มบวก n แล้วแสดงสี่เหลี่ยมดาวขนาด n × n\n\n**Input:** จำนวนเต็มบวก n\n**Output:** ดาว n ดวง จำนวน n บรรทัด\n\n### ตัวอย่าง\nInput:\n```\n3\n```\nOutput:\n```\n***\n***\n***\n```",
+  "difficulty": "easy",
+  "starter_code": "n = int(input())\n",
+  "tests": [
+   {
+    "input": "3",
+    "expected_output": "***\n***\n***",
+    "hidden": 0
+   },
+   {
+    "input": "1",
+    "expected_output": "*",
+    "hidden": 0
+   },
+   {
+    "input": "5",
+    "expected_output": "*****\n*****\n*****\n*****\n*****",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "สามเหลี่ยมดาว",
+  "description": "รับจำนวนเต็มบวก n แล้วแสดงสามเหลี่ยมดาว: แถวที่ 1 มีดาว 1 ดวง แถวที่ 2 มี 2 ดวง … จนถึงแถวที่ n\n\n**Input:** จำนวนเต็มบวก n\n**Output:** สามเหลี่ยมดาว n แถว\n\n### ตัวอย่าง\nInput:\n```\n4\n```\nOutput:\n```\n*\n**\n***\n****\n```",
+  "difficulty": "easy",
+  "starter_code": "n = int(input())\n",
+  "tests": [
+   {
+    "input": "4",
+    "expected_output": "*\n**\n***\n****",
+    "hidden": 0
+   },
+   {
+    "input": "1",
+    "expected_output": "*",
+    "hidden": 0
+   },
+   {
+    "input": "6",
+    "expected_output": "*\n**\n***\n****\n*****\n******",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ความยาวข้อความ",
+  "description": "รับข้อความหนึ่งบรรทัด แล้วแสดงจำนวนตัวอักษร (รวมช่องว่าง)\n\n**Input:** ข้อความ 1 บรรทัด\n**Output:** ความยาวข้อความ\n\n### ตัวอย่าง\nInput:\n```\nhello\n```\nOutput:\n```\n5\n```",
+  "difficulty": "easy",
+  "starter_code": "text = input()\n",
+  "tests": [
+   {
+    "input": "hello",
+    "expected_output": "5",
+    "hidden": 0
+   },
+   {
+    "input": "Python is fun",
+    "expected_output": "13",
+    "hidden": 0
+   },
+   {
+    "input": "a",
+    "expected_output": "1",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ตัวพิมพ์ใหญ่ทั้งหมด",
+  "description": "รับข้อความภาษาอังกฤษ แล้วแสดงเป็นตัวพิมพ์ใหญ่ทั้งหมด\n\n**Input:** ข้อความ 1 บรรทัด\n**Output:** ข้อความตัวพิมพ์ใหญ่\n\n### ตัวอย่าง\nInput:\n```\nhello world\n```\nOutput:\n```\nHELLO WORLD\n```",
+  "difficulty": "easy",
+  "starter_code": "text = input()\n",
+  "tests": [
+   {
+    "input": "hello world",
+    "expected_output": "HELLO WORLD",
+    "hidden": 0
+   },
+   {
+    "input": "Python",
+    "expected_output": "PYTHON",
+    "hidden": 0
+   },
+   {
+    "input": "aBcDe",
+    "expected_output": "ABCDE",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ตัวพิมพ์เล็กทั้งหมด",
+  "description": "รับข้อความภาษาอังกฤษ แล้วแสดงเป็นตัวพิมพ์เล็กทั้งหมด\n\n**Input:** ข้อความ 1 บรรทัด\n**Output:** ข้อความตัวพิมพ์เล็ก\n\n### ตัวอย่าง\nInput:\n```\nHELLO World\n```\nOutput:\n```\nhello world\n```",
+  "difficulty": "easy",
+  "starter_code": "text = input()\n",
+  "tests": [
+   {
+    "input": "HELLO World",
+    "expected_output": "hello world",
+    "hidden": 0
+   },
+   {
+    "input": "PyThOn",
+    "expected_output": "python",
+    "hidden": 0
+   },
+   {
+    "input": "abc",
+    "expected_output": "abc",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "กลับข้อความ",
+  "description": "รับข้อความหนึ่งบรรทัด แล้วแสดงข้อความกลับด้าน (เคล็ดลับ: `text[::-1]`)\n\n**Input:** ข้อความ 1 บรรทัด\n**Output:** ข้อความกลับด้าน\n\n### ตัวอย่าง\nInput:\n```\nhello\n```\nOutput:\n```\nolleh\n```",
+  "difficulty": "easy",
+  "starter_code": "text = input()\n",
+  "tests": [
+   {
+    "input": "hello",
+    "expected_output": "olleh",
+    "hidden": 0
+   },
+   {
+    "input": "Python",
+    "expected_output": "nohtyP",
+    "hidden": 0
+   },
+   {
+    "input": "abc def",
+    "expected_output": "fed cba",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "อักษรตัวแรกและตัวสุดท้าย",
+  "description": "รับข้อความ (ยาวอย่างน้อย 1 ตัวอักษร) แสดงอักษรตัวแรกบรรทัดหนึ่ง และอักษรตัวสุดท้ายอีกบรรทัด\n\n**Input:** ข้อความ 1 บรรทัด\n**Output:** ตัวแรก และ ตัวสุดท้าย บรรทัดละตัว\n\n### ตัวอย่าง\nInput:\n```\npython\n```\nOutput:\n```\np\nn\n```",
+  "difficulty": "easy",
+  "starter_code": "text = input()\n",
+  "tests": [
+   {
+    "input": "python",
+    "expected_output": "p\nn",
+    "hidden": 0
+   },
+   {
+    "input": "a",
+    "expected_output": "a\na",
+    "hidden": 0
+   },
+   {
+    "input": "Hello!",
+    "expected_output": "H\n!",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ต่อข้อความ",
+  "description": "รับข้อความ 2 บรรทัด แล้วแสดงข้อความทั้งสองต่อกันในบรรทัดเดียว คั่นด้วยช่องว่าง 1 ช่อง\n\n**Input:** ข้อความ 2 บรรทัด\n**Output:** ข้อความที่ต่อกัน\n\n### ตัวอย่าง\nInput:\n```\ngood\nmorning\n```\nOutput:\n```\ngood morning\n```",
+  "difficulty": "easy",
+  "starter_code": "a = input()\nb = input()\n",
+  "tests": [
+   {
+    "input": "good\nmorning",
+    "expected_output": "good morning",
+    "hidden": 0
+   },
+   {
+    "input": "สวัสดี\nครับ",
+    "expected_output": "สวัสดี ครับ",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ทำซ้ำข้อความ",
+  "description": "รับข้อความ 1 บรรทัด และจำนวนเต็มบวก n แล้วแสดงข้อความนั้นซ้ำ n บรรทัด\n\n**Input:** ข้อความ และ n บรรทัดละค่า\n**Output:** ข้อความซ้ำ n บรรทัด\n\n### ตัวอย่าง\nInput:\n```\nhi\n3\n```\nOutput:\n```\nhi\nhi\nhi\n```",
+  "difficulty": "easy",
+  "starter_code": "text = input()\nn = int(input())\n",
+  "tests": [
+   {
+    "input": "hi\n3",
+    "expected_output": "hi\nhi\nhi",
+    "hidden": 0
+   },
+   {
+    "input": "Python\n1",
+    "expected_output": "Python",
+    "hidden": 1
+   },
+   {
+    "input": "ok\n5",
+    "expected_output": "ok\nok\nok\nok\nok",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "นับตัวอักษร a",
+  "description": "รับข้อความภาษาอังกฤษ แล้วนับว่ามีตัวอักษร `a` (ตัวเล็กเท่านั้น) กี่ตัว\n\n**Input:** ข้อความ 1 บรรทัด\n**Output:** จำนวนตัว a\n\n### ตัวอย่าง\nInput:\n```\nbanana\n```\nOutput:\n```\n3\n```",
+  "difficulty": "easy",
+  "starter_code": "text = input()\n",
+  "tests": [
+   {
+    "input": "banana",
+    "expected_output": "3",
+    "hidden": 0
+   },
+   {
+    "input": "Apple and ant",
+    "expected_output": "2",
+    "hidden": 0
+   },
+   {
+    "input": "xyz",
+    "expected_output": "0",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ขึ้นต้นด้วยคำนี้ไหม",
+  "description": "รับข้อความ 1 บรรทัด และคำขึ้นต้น 1 บรรทัด ถ้าข้อความขึ้นต้นด้วยคำนั้นแสดง `yes` ไม่ใช่แสดง `no`\n\n**Input:** ข้อความ และ คำขึ้นต้น บรรทัดละค่า\n**Output:** `yes` หรือ `no`\n\n### ตัวอย่าง\nInput:\n```\npython is fun\npy\n```\nOutput:\n```\nyes\n```",
+  "difficulty": "easy",
+  "starter_code": "text = input()\nprefix = input()\n",
+  "tests": [
+   {
+    "input": "python is fun\npy",
+    "expected_output": "yes",
+    "hidden": 0
+   },
+   {
+    "input": "hello world\nworld",
+    "expected_output": "no",
+    "hidden": 0
+   },
+   {
+    "input": "apple\napple",
+    "expected_output": "yes",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "มีคำนี้ในประโยคไหม",
+  "description": "รับประโยค 1 บรรทัด และคำค้นหา 1 บรรทัด ถ้าพบคำนั้นในประโยคแสดง `found` ไม่พบแสดง `not found`\n\n**Input:** ประโยค และ คำค้นหา บรรทัดละค่า\n**Output:** `found` หรือ `not found`\n\n### ตัวอย่าง\nInput:\n```\nI love Python\nlove\n```\nOutput:\n```\nfound\n```",
+  "difficulty": "easy",
+  "starter_code": "sentence = input()\nword = input()\n",
+  "tests": [
+   {
+    "input": "I love Python\nlove",
+    "expected_output": "found",
+    "hidden": 0
+   },
+   {
+    "input": "hello world\ncat",
+    "expected_output": "not found",
+    "hidden": 0
+   },
+   {
+    "input": "ขอบคุณครับ\nคุณ",
+    "expected_output": "found",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ผลรวมของลิสต์",
+  "description": "รับจำนวนเต็มหลายค่าในบรรทัดเดียว (คั่นด้วยช่องว่าง) แล้วแสดงผลรวม\n\n**Input:** จำนวนเต็มคั่นด้วยช่องว่าง 1 บรรทัด\n**Output:** ผลรวม\n\n> เคล็ดลับ: `nums = [int(x) for x in input().split()]`\n\n### ตัวอย่าง\nInput:\n```\n1 2 3 4\n```\nOutput:\n```\n10\n```",
+  "difficulty": "easy",
+  "starter_code": "nums = [int(x) for x in input().split()]\n",
+  "tests": [
+   {
+    "input": "1 2 3 4",
+    "expected_output": "10",
+    "hidden": 0
+   },
+   {
+    "input": "10 -5 3",
+    "expected_output": "8",
+    "hidden": 0
+   },
+   {
+    "input": "42",
+    "expected_output": "42",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ค่ามากสุดในลิสต์ (ใช้ max ได้)",
+  "description": "รับจำนวนเต็มหลายค่าในบรรทัดเดียว แล้วแสดงค่าที่มากที่สุด (ข้อนี้ใช้ `max()` ได้)\n\n**Input:** จำนวนเต็มคั่นด้วยช่องว่าง\n**Output:** ค่ามากสุด\n\n### ตัวอย่าง\nInput:\n```\n3 9 1 7\n```\nOutput:\n```\n9\n```",
+  "difficulty": "easy",
+  "starter_code": "nums = [int(x) for x in input().split()]\n",
+  "tests": [
+   {
+    "input": "3 9 1 7",
+    "expected_output": "9",
+    "hidden": 0
+   },
+   {
+    "input": "-5 -2 -10",
+    "expected_output": "-2",
+    "hidden": 0
+   },
+   {
+    "input": "8",
+    "expected_output": "8",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ค่าน้อยสุดในลิสต์",
+  "description": "รับจำนวนเต็มหลายค่าในบรรทัดเดียว แล้วแสดงค่าที่น้อยที่สุด\n\n**Input:** จำนวนเต็มคั่นด้วยช่องว่าง\n**Output:** ค่าน้อยสุด\n\n### ตัวอย่าง\nInput:\n```\n3 9 1 7\n```\nOutput:\n```\n1\n```",
+  "difficulty": "easy",
+  "starter_code": "nums = [int(x) for x in input().split()]\n",
+  "tests": [
+   {
+    "input": "3 9 1 7",
+    "expected_output": "1",
+    "hidden": 0
+   },
+   {
+    "input": "-5 -2 -10",
+    "expected_output": "-10",
+    "hidden": 0
+   },
+   {
+    "input": "8",
+    "expected_output": "8",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "นับจำนวนสมาชิก",
+  "description": "รับค่าหลายค่าในบรรทัดเดียว (คั่นด้วยช่องว่าง) แล้วแสดงจำนวนสมาชิก\n\n**Input:** ค่าคั่นด้วยช่องว่าง 1 บรรทัด\n**Output:** จำนวนสมาชิก\n\n### ตัวอย่าง\nInput:\n```\na b c d\n```\nOutput:\n```\n4\n```",
+  "difficulty": "easy",
+  "starter_code": "items = input().split()\n",
+  "tests": [
+   {
+    "input": "a b c d",
+    "expected_output": "4",
+    "hidden": 0
+   },
+   {
+    "input": "1 2 3",
+    "expected_output": "3",
+    "hidden": 0
+   },
+   {
+    "input": "hello",
+    "expected_output": "1",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "สมาชิกตัวแรกและตัวสุดท้าย",
+  "description": "รับจำนวนเต็มหลายค่าในบรรทัดเดียว แสดงสมาชิกตัวแรกบรรทัดหนึ่ง และตัวสุดท้ายอีกบรรทัด\n\n**Input:** จำนวนเต็มคั่นด้วยช่องว่าง\n**Output:** ตัวแรก และ ตัวสุดท้าย บรรทัดละค่า\n\n### ตัวอย่าง\nInput:\n```\n5 8 2 9\n```\nOutput:\n```\n5\n9\n```",
+  "difficulty": "easy",
+  "starter_code": "nums = input().split()\n",
+  "tests": [
+   {
+    "input": "5 8 2 9",
+    "expected_output": "5\n9",
+    "hidden": 0
+   },
+   {
+    "input": "7",
+    "expected_output": "7\n7",
+    "hidden": 0
+   },
+   {
+    "input": "1 2 3",
+    "expected_output": "1\n3",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ปัดเศษทศนิยม",
+  "description": "รับเลขทศนิยม 1 ค่า แล้วแสดงค่าที่ปัดเศษเป็นจำนวนเต็มที่ใกล้ที่สุด (ใช้ `round()`)\n\n**Input:** เลขทศนิยม 1 ค่า\n**Output:** จำนวนเต็มหลังปัดเศษ\n\n### ตัวอย่าง\nInput:\n```\n3.7\n```\nOutput:\n```\n4\n```",
+  "difficulty": "easy",
+  "starter_code": "x = float(input())\n",
+  "tests": [
+   {
+    "input": "3.7",
+    "expected_output": "4",
+    "hidden": 0
+   },
+   {
+    "input": "6.2",
+    "expected_output": "6",
+    "hidden": 0
+   },
+   {
+    "input": "9.9",
+    "expected_output": "10",
+    "hidden": 1
+   },
+   {
+    "input": "2.4",
+    "expected_output": "2",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "นาทีเป็นชั่วโมงกับนาที",
+  "description": "รับจำนวนนาที (จำนวนเต็มบวก) แล้วแปลงเป็นชั่วโมงกับนาทีที่เหลือ แสดงบรรทัดละค่า\n\n**Input:** จำนวนนาที\n**Output:** ชั่วโมง และ นาทีที่เหลือ บรรทัดละค่า\n\n### ตัวอย่าง\nInput:\n```\n130\n```\nOutput:\n```\n2\n10\n```",
+  "difficulty": "easy",
+  "starter_code": "m = int(input())\n",
+  "tests": [
+   {
+    "input": "130",
+    "expected_output": "2\n10",
+    "hidden": 0
+   },
+   {
+    "input": "59",
+    "expected_output": "0\n59",
+    "hidden": 0
+   },
+   {
+    "input": "3600",
+    "expected_output": "60\n0",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ตัดเกรด",
+  "description": "รับคะแนน 0–100 แล้วตัดเกรดตามเกณฑ์\n\n| คะแนน | เกรด |\n|-------|------|\n| 80 ขึ้นไป | A |\n| 70–79 | B |\n| 60–69 | C |\n| 50–59 | D |\n| ต่ำกว่า 50 | F |\n\n**Input:** จำนวนเต็ม 1 ค่า\n**Output:** เกรด 1 ตัวอักษร\n\n### ตัวอย่าง\nInput:\n```\n85\n```\nOutput:\n```\nA\n```",
+  "difficulty": "medium",
+  "starter_code": "score = int(input())\n# เขียนต่อตรงนี้\n",
+  "tests": [
+   {
+    "input": "85",
+    "expected_output": "A",
+    "hidden": 0
+   },
+   {
+    "input": "72",
+    "expected_output": "B",
+    "hidden": 0
+   },
+   {
+    "input": "65",
+    "expected_output": "C",
+    "hidden": 1
+   },
+   {
+    "input": "50",
+    "expected_output": "D",
+    "hidden": 1
+   },
+   {
+    "input": "49",
+    "expected_output": "F",
+    "hidden": 1
+   },
+   {
+    "input": "80",
+    "expected_output": "A",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ผลรวม 1 ถึง n",
+  "description": "รับจำนวนเต็มบวก n แล้วแสดงผลรวม 1 + 2 + ... + n\n\n**Input:** จำนวนเต็ม n (1 ≤ n ≤ 10000)\n**Output:** ผลรวม\n\n### ตัวอย่าง\nInput:\n```\n5\n```\nOutput:\n```\n15\n```",
+  "difficulty": "medium",
+  "starter_code": "n = int(input())\ntotal = 0\n# ใช้ลูป for ช่วยคำนวณ\n",
+  "tests": [
+   {
+    "input": "5",
+    "expected_output": "15",
+    "hidden": 0
+   },
+   {
+    "input": "1",
+    "expected_output": "1",
+    "hidden": 0
+   },
+   {
+    "input": "100",
+    "expected_output": "5050",
+    "hidden": 1
+   },
+   {
+    "input": "10000",
+    "expected_output": "50005000",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ตาราง FizzBuzz",
+  "description": "รับจำนวนเต็ม n แล้วแสดงเลข 1 ถึง n บรรทัดละค่า โดย\n- ถ้าหารด้วย 3 และ 5 ลงตัว แสดง `FizzBuzz`\n- ถ้าหารด้วย 3 ลงตัว แสดง `Fizz`\n- ถ้าหารด้วย 5 ลงตัว แสดง `Buzz`\n- นอกนั้นแสดงตัวเลขตามปกติ\n\n**Input:** จำนวนเต็มบวก n\n**Output:** ผลลัพธ์ n บรรทัด\n\n### ตัวอย่าง\nInput:\n```\n5\n```\nOutput:\n```\n1\n2\nFizz\n4\nBuzz\n```",
+  "difficulty": "medium",
+  "starter_code": "n = int(input())\nfor i in range(1, n + 1):\n    pass  # เขียนเงื่อนไขตรงนี้\n",
+  "tests": [
+   {
+    "input": "5",
+    "expected_output": "1\n2\nFizz\n4\nBuzz",
+    "hidden": 0
+   },
+   {
+    "input": "15",
+    "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz",
+    "hidden": 1
+   },
+   {
+    "input": "3",
+    "expected_output": "1\n2\nFizz",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ผลรวมเลขคู่",
+  "description": "รับจำนวนเต็มบวก n แล้วแสดงผลรวมของเลขคู่ทั้งหมดตั้งแต่ 2 ถึง n\n\n**Input:** จำนวนเต็มบวก n\n**Output:** ผลรวมเลขคู่\n\n### ตัวอย่าง\nInput:\n```\n10\n```\nOutput:\n```\n30\n```",
+  "difficulty": "medium",
+  "starter_code": "n = int(input())\n",
+  "tests": [
+   {
+    "input": "10",
+    "expected_output": "30",
+    "hidden": 0
+   },
+   {
+    "input": "7",
+    "expected_output": "12",
+    "hidden": 0
+   },
+   {
+    "input": "100",
+    "expected_output": "2550",
+    "hidden": 1
+   },
+   {
+    "input": "1",
+    "expected_output": "0",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "แฟกทอเรียล",
+  "description": "รับจำนวนเต็ม n (0 ≤ n ≤ 20) แล้วแสดงค่า n! = 1 × 2 × … × n (กำหนด 0! = 1)\n\n**Input:** จำนวนเต็ม n\n**Output:** n!\n\n### ตัวอย่าง\nInput:\n```\n5\n```\nOutput:\n```\n120\n```",
+  "difficulty": "medium",
+  "starter_code": "n = int(input())\nresult = 1\n",
+  "tests": [
+   {
+    "input": "5",
+    "expected_output": "120",
+    "hidden": 0
+   },
+   {
+    "input": "0",
+    "expected_output": "1",
+    "hidden": 0
+   },
+   {
+    "input": "10",
+    "expected_output": "3628800",
+    "hidden": 1
+   },
+   {
+    "input": "20",
+    "expected_output": "2432902008176640000",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "สูตรคูณ",
+  "description": "รับจำนวนเต็มบวก n แล้วแสดงสูตรคูณแม่ n ตั้งแต่ 1 ถึง 12 ในรูปแบบ `n x i = ผลลัพธ์`\n\n**Input:** จำนวนเต็มบวก n\n**Output:** สูตรคูณ 12 บรรทัด เช่น `2 x 1 = 2`\n\n### ตัวอย่าง\nInput:\n```\n2\n```\nOutput:\n```\n2 x 1 = 2\n2 x 2 = 4\n2 x 3 = 6\n2 x 4 = 8\n2 x 5 = 10\n2 x 6 = 12\n2 x 7 = 14\n2 x 8 = 16\n2 x 9 = 18\n2 x 10 = 20\n2 x 11 = 22\n2 x 12 = 24\n```",
+  "difficulty": "medium",
+  "starter_code": "n = int(input())\n",
+  "tests": [
+   {
+    "input": "2",
+    "expected_output": "2 x 1 = 2\n2 x 2 = 4\n2 x 3 = 6\n2 x 4 = 8\n2 x 5 = 10\n2 x 6 = 12\n2 x 7 = 14\n2 x 8 = 16\n2 x 9 = 18\n2 x 10 = 20\n2 x 11 = 22\n2 x 12 = 24",
+    "hidden": 0
+   },
+   {
+    "input": "7",
+    "expected_output": "7 x 1 = 7\n7 x 2 = 14\n7 x 3 = 21\n7 x 4 = 28\n7 x 5 = 35\n7 x 6 = 42\n7 x 7 = 49\n7 x 8 = 56\n7 x 9 = 63\n7 x 10 = 70\n7 x 11 = 77\n7 x 12 = 84",
+    "hidden": 1
+   },
+   {
+    "input": "12",
+    "expected_output": "12 x 1 = 12\n12 x 2 = 24\n12 x 3 = 36\n12 x 4 = 48\n12 x 5 = 60\n12 x 6 = 72\n12 x 7 = 84\n12 x 8 = 96\n12 x 9 = 108\n12 x 10 = 120\n12 x 11 = 132\n12 x 12 = 144",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "นับเลขคี่ในลิสต์",
+  "description": "รับจำนวนเต็มหลายค่าในบรรทัดเดียว แล้วนับว่ามีเลขคี่กี่ตัว\n\n**Input:** จำนวนเต็มคั่นด้วยช่องว่าง\n**Output:** จำนวนเลขคี่\n\n### ตัวอย่าง\nInput:\n```\n1 2 3 4 5\n```\nOutput:\n```\n3\n```",
+  "difficulty": "medium",
+  "starter_code": "nums = [int(x) for x in input().split()]\n",
+  "tests": [
+   {
+    "input": "1 2 3 4 5",
+    "expected_output": "3",
+    "hidden": 0
+   },
+   {
+    "input": "2 4 6",
+    "expected_output": "0",
+    "hidden": 0
+   },
+   {
+    "input": "-1 -3 0",
+    "expected_output": "2",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ค่าเฉลี่ยทศนิยม 2 ตำแหน่ง",
+  "description": "รับจำนวนเต็มหลายค่าในบรรทัดเดียว แล้วแสดงค่าเฉลี่ยเป็นทศนิยม 2 ตำแหน่ง (ใช้ f-string `{x:.2f}`)\n\n**Input:** จำนวนเต็มคั่นด้วยช่องว่าง\n**Output:** ค่าเฉลี่ยทศนิยม 2 ตำแหน่ง\n\n### ตัวอย่าง\nInput:\n```\n80 95 60\n```\nOutput:\n```\n78.33\n```",
+  "difficulty": "medium",
+  "starter_code": "nums = [int(x) for x in input().split()]\n",
+  "tests": [
+   {
+    "input": "80 95 60",
+    "expected_output": "78.33",
+    "hidden": 0
+   },
+   {
+    "input": "1 2",
+    "expected_output": "1.50",
+    "hidden": 0
+   },
+   {
+    "input": "10",
+    "expected_output": "10.00",
+    "hidden": 1
+   },
+   {
+    "input": "1 2 3 4 5 6",
+    "expected_output": "3.50",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "กลับตัวเลข",
+  "description": "รับจำนวนเต็มบวก n แล้วแสดงตัวเลขที่กลับหลักจากหลังไปหน้า (เช่น 123 → 321, 120 → 21)\n\n**Input:** จำนวนเต็มบวก n\n**Output:** ตัวเลขกลับด้าน (ไม่มีศูนย์นำหน้า)\n\n### ตัวอย่าง\nInput:\n```\n123\n```\nOutput:\n```\n321\n```",
+  "difficulty": "medium",
+  "starter_code": "n = input()\n",
+  "tests": [
+   {
+    "input": "123",
+    "expected_output": "321",
+    "hidden": 0
+   },
+   {
+    "input": "120",
+    "expected_output": "21",
+    "hidden": 0
+   },
+   {
+    "input": "5",
+    "expected_output": "5",
+    "hidden": 1
+   },
+   {
+    "input": "9000",
+    "expected_output": "9",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ผลรวมของหลัก",
+  "description": "รับจำนวนเต็มบวก n แล้วแสดงผลรวมของเลขแต่ละหลัก (เช่น 123 → 1+2+3 = 6)\n\n**Input:** จำนวนเต็มบวก n\n**Output:** ผลรวมของหลัก\n\n### ตัวอย่าง\nInput:\n```\n123\n```\nOutput:\n```\n6\n```",
+  "difficulty": "medium",
+  "starter_code": "n = input()\n",
+  "tests": [
+   {
+    "input": "123",
+    "expected_output": "6",
+    "hidden": 0
+   },
+   {
+    "input": "999",
+    "expected_output": "27",
+    "hidden": 0
+   },
+   {
+    "input": "5",
+    "expected_output": "5",
+    "hidden": 1
+   },
+   {
+    "input": "100000",
+    "expected_output": "1",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "นับจำนวนหลัก",
+  "description": "รับจำนวนเต็มบวก n แล้วแสดงว่า n มีกี่หลัก\n\n**Input:** จำนวนเต็มบวก n\n**Output:** จำนวนหลัก\n\n### ตัวอย่าง\nInput:\n```\n12345\n```\nOutput:\n```\n5\n```",
+  "difficulty": "medium",
+  "starter_code": "n = input()\n",
+  "tests": [
+   {
+    "input": "12345",
+    "expected_output": "5",
+    "hidden": 0
+   },
+   {
+    "input": "7",
+    "expected_output": "1",
+    "hidden": 0
+   },
+   {
+    "input": "1000000",
+    "expected_output": "7",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ปีอธิกสุรทิน",
+  "description": "รับปี ค.ศ. ถ้าเป็นปีอธิกสุรทินแสดง `leap` ไม่ใช่แสดง `not leap`\n\nกติกา: หาร 4 ลงตัว **และ** (หาร 100 ไม่ลงตัว **หรือ** หาร 400 ลงตัว)\n\n**Input:** ปี ค.ศ. (จำนวนเต็มบวก)\n**Output:** `leap` หรือ `not leap`\n\n### ตัวอย่าง\nInput:\n```\n2024\n```\nOutput:\n```\nleap\n```",
+  "difficulty": "medium",
+  "starter_code": "year = int(input())\n",
+  "tests": [
+   {
+    "input": "2024",
+    "expected_output": "leap",
+    "hidden": 0
+   },
+   {
+    "input": "2023",
+    "expected_output": "not leap",
+    "hidden": 0
+   },
+   {
+    "input": "1900",
+    "expected_output": "not leap",
+    "hidden": 1
+   },
+   {
+    "input": "2000",
+    "expected_output": "leap",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "คำพาลินโดรม",
+  "description": "รับคำภาษาอังกฤษ (ตัวพิมพ์เล็ก) ถ้าอ่านจากหน้าไปหลังกับหลังมาหน้าได้เหมือนกันแสดง `yes` ไม่ใช่แสดง `no`\n\n**Input:** คำ 1 บรรทัด\n**Output:** `yes` หรือ `no`\n\n### ตัวอย่าง\nInput:\n```\nlevel\n```\nOutput:\n```\nyes\n```",
+  "difficulty": "medium",
+  "starter_code": "word = input()\n",
+  "tests": [
+   {
+    "input": "level",
+    "expected_output": "yes",
+    "hidden": 0
+   },
+   {
+    "input": "python",
+    "expected_output": "no",
+    "hidden": 0
+   },
+   {
+    "input": "a",
+    "expected_output": "yes",
+    "hidden": 1
+   },
+   {
+    "input": "noon",
+    "expected_output": "yes",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "หาตำแหน่งในลิสต์",
+  "description": "รับจำนวนเต็มหลายค่าในบรรทัดแรก และค่าที่ต้องการหาในบรรทัดที่สอง แสดงตำแหน่ง (index เริ่มที่ 0) ของค่านั้นที่พบครั้งแรก ถ้าไม่พบแสดง `-1`\n\n**Input:** ลิสต์ 1 บรรทัด และค่าที่หา 1 บรรทัด\n**Output:** index หรือ -1\n\n### ตัวอย่าง\nInput:\n```\n5 8 2 9\n2\n```\nOutput:\n```\n2\n```",
+  "difficulty": "medium",
+  "starter_code": "nums = [int(x) for x in input().split()]\ntarget = int(input())\n",
+  "tests": [
+   {
+    "input": "5 8 2 9\n2",
+    "expected_output": "2",
+    "hidden": 0
+   },
+   {
+    "input": "1 2 3\n7",
+    "expected_output": "-1",
+    "hidden": 0
+   },
+   {
+    "input": "4 4 4\n4",
+    "expected_output": "0",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "เรียงจากน้อยไปมาก",
+  "description": "รับจำนวนเต็มหลายค่าในบรรทัดเดียว แล้วแสดงค่าทั้งหมดเรียงจากน้อยไปมาก คั่นด้วยช่องว่าง\n\n**Input:** จำนวนเต็มคั่นด้วยช่องว่าง\n**Output:** ค่าที่เรียงแล้ว คั่นด้วยช่องว่าง\n\n### ตัวอย่าง\nInput:\n```\n3 1 4 1 5\n```\nOutput:\n```\n1 1 3 4 5\n```",
+  "difficulty": "medium",
+  "starter_code": "nums = [int(x) for x in input().split()]\n",
+  "tests": [
+   {
+    "input": "3 1 4 1 5",
+    "expected_output": "1 1 3 4 5",
+    "hidden": 0
+   },
+   {
+    "input": "10 -5 0",
+    "expected_output": "-5 0 10",
+    "hidden": 0
+   },
+   {
+    "input": "7",
+    "expected_output": "7",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "เรียงจากมากไปน้อย",
+  "description": "รับจำนวนเต็มหลายค่าในบรรทัดเดียว แล้วแสดงค่าทั้งหมดเรียงจากมากไปน้อย คั่นด้วยช่องว่าง\n\n**Input:** จำนวนเต็มคั่นด้วยช่องว่าง\n**Output:** ค่าที่เรียงแล้ว คั่นด้วยช่องว่าง\n\n### ตัวอย่าง\nInput:\n```\n3 1 4 1 5\n```\nOutput:\n```\n5 4 3 1 1\n```",
+  "difficulty": "medium",
+  "starter_code": "nums = [int(x) for x in input().split()]\n",
+  "tests": [
+   {
+    "input": "3 1 4 1 5",
+    "expected_output": "5 4 3 1 1",
+    "hidden": 0
+   },
+   {
+    "input": "-2 8 0",
+    "expected_output": "8 0 -2",
+    "hidden": 0
+   },
+   {
+    "input": "9",
+    "expected_output": "9",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ตัดค่าซ้ำ",
+  "description": "รับจำนวนเต็มหลายค่าในบรรทัดเดียว แล้วแสดงค่าที่ไม่ซ้ำกันโดย**รักษาลำดับการพบครั้งแรก** คั่นด้วยช่องว่าง\n\n**Input:** จำนวนเต็มคั่นด้วยช่องว่าง\n**Output:** ค่าที่ไม่ซ้ำตามลำดับ\n\n### ตัวอย่าง\nInput:\n```\n1 2 2 3 1 4\n```\nOutput:\n```\n1 2 3 4\n```",
+  "difficulty": "medium",
+  "starter_code": "nums = [int(x) for x in input().split()]\n",
+  "tests": [
+   {
+    "input": "1 2 2 3 1 4",
+    "expected_output": "1 2 3 4",
+    "hidden": 0
+   },
+   {
+    "input": "5 5 5",
+    "expected_output": "5",
+    "hidden": 0
+   },
+   {
+    "input": "1 2 3",
+    "expected_output": "1 2 3",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "นับคำในประโยค",
+  "description": "รับประโยคภาษาอังกฤษ 1 บรรทัด แล้วนับจำนวนคำ (คั่นด้วยช่องว่าง)\n\n**Input:** ประโยค 1 บรรทัด\n**Output:** จำนวนคำ\n\n### ตัวอย่าง\nInput:\n```\nI love Python very much\n```\nOutput:\n```\n5\n```",
+  "difficulty": "medium",
+  "starter_code": "sentence = input()\n",
+  "tests": [
+   {
+    "input": "I love Python very much",
+    "expected_output": "5",
+    "hidden": 0
+   },
+   {
+    "input": "hello",
+    "expected_output": "1",
+    "hidden": 0
+   },
+   {
+    "input": "a b c d e f g",
+    "expected_output": "7",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "คำที่ยาวที่สุด",
+  "description": "รับประโยคภาษาอังกฤษ 1 บรรทัด แล้วแสดงคำที่ยาวที่สุด (ถ้ายาวเท่ากันให้เอาคำที่พบก่อน)\n\n**Input:** ประโยค 1 บรรทัด\n**Output:** คำที่ยาวที่สุด\n\n### ตัวอย่าง\nInput:\n```\nI love programming in Python\n```\nOutput:\n```\nprogramming\n```",
+  "difficulty": "medium",
+  "starter_code": "words = input().split()\n",
+  "tests": [
+   {
+    "input": "I love programming in Python",
+    "expected_output": "programming",
+    "hidden": 0
+   },
+   {
+    "input": "cat dog bird",
+    "expected_output": "bird",
+    "hidden": 0
+   },
+   {
+    "input": "go run fly",
+    "expected_output": "run",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ฟีโบนัชชี n ตัวแรก",
+  "description": "แสดงลำดับฟีโบนัชชี n ตัวแรก (เริ่ม 1 1 2 3 5 …) ในบรรทัดเดียว คั่นด้วยช่องว่าง\n\n**Input:** จำนวนเต็มบวก n\n**Output:** ฟีโบนัชชี n ตัวแรก คั่นด้วยช่องว่าง\n\n### ตัวอย่าง\nInput:\n```\n7\n```\nOutput:\n```\n1 1 2 3 5 8 13\n```",
+  "difficulty": "medium",
+  "starter_code": "n = int(input())\na, b = 1, 1\n",
+  "tests": [
+   {
+    "input": "7",
+    "expected_output": "1 1 2 3 5 8 13",
+    "hidden": 0
+   },
+   {
+    "input": "1",
+    "expected_output": "1",
+    "hidden": 0
+   },
+   {
+    "input": "2",
+    "expected_output": "1 1",
+    "hidden": 1
+   },
+   {
+    "input": "15",
+    "expected_output": "1 1 2 3 5 8 13 21 34 55 89 144 233 377 610",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ห.ร.ม.",
+  "description": "รับจำนวนเต็มบวก a และ b แล้วแสดงตัวหารร่วมมาก (ห.ร.ม.)\n\n**Input:** จำนวนเต็มบวก 2 บรรทัด\n**Output:** ห.ร.ม. ของ a และ b\n\n### ตัวอย่าง\nInput:\n```\n12\n18\n```\nOutput:\n```\n6\n```",
+  "difficulty": "medium",
+  "starter_code": "a = int(input())\nb = int(input())\n# ลองใช้วิธียุคลิด: ขณะที่ b ไม่เป็น 0 ให้ a, b = b, a % b\n",
+  "tests": [
+   {
+    "input": "12\n18",
+    "expected_output": "6",
+    "hidden": 0
+   },
+   {
+    "input": "7\n13",
+    "expected_output": "1",
+    "hidden": 0
+   },
+   {
+    "input": "100\n75",
+    "expected_output": "25",
+    "hidden": 1
+   },
+   {
+    "input": "36\n36",
+    "expected_output": "36",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ค.ร.น.",
+  "description": "รับจำนวนเต็มบวก a และ b แล้วแสดงตัวคูณร่วมน้อย (ค.ร.น.) — เคล็ดลับ: ค.ร.น. = a × b ÷ ห.ร.ม.\n\n**Input:** จำนวนเต็มบวก 2 บรรทัด\n**Output:** ค.ร.น. ของ a และ b\n\n### ตัวอย่าง\nInput:\n```\n4\n6\n```\nOutput:\n```\n12\n```",
+  "difficulty": "medium",
+  "starter_code": "a = int(input())\nb = int(input())\n",
+  "tests": [
+   {
+    "input": "4\n6",
+    "expected_output": "12",
+    "hidden": 0
+   },
+   {
+    "input": "3\n5",
+    "expected_output": "15",
+    "hidden": 0
+   },
+   {
+    "input": "12\n18",
+    "expected_output": "36",
+    "hidden": 1
+   },
+   {
+    "input": "7\n7",
+    "expected_output": "7",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ยกกำลังสองทุกตัว",
+  "description": "รับจำนวนเต็มหลายค่าในบรรทัดเดียว แล้วแสดงแต่ละค่ายกกำลังสอง คั่นด้วยช่องว่าง\n\n**Input:** จำนวนเต็มคั่นด้วยช่องว่าง\n**Output:** ค่ายกกำลังสองตามลำดับเดิม\n\n### ตัวอย่าง\nInput:\n```\n1 2 3 4\n```\nOutput:\n```\n1 4 9 16\n```",
+  "difficulty": "medium",
+  "starter_code": "nums = [int(x) for x in input().split()]\n",
+  "tests": [
+   {
+    "input": "1 2 3 4",
+    "expected_output": "1 4 9 16",
+    "hidden": 0
+   },
+   {
+    "input": "-3 5",
+    "expected_output": "9 25",
+    "hidden": 0
+   },
+   {
+    "input": "10",
+    "expected_output": "100",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "กรองเลขหาร 3 ลงตัว",
+  "description": "รับจำนวนเต็มหลายค่าในบรรทัดเดียว แล้วแสดงเฉพาะค่าที่หารด้วย 3 ลงตัว คั่นด้วยช่องว่าง (รับประกันว่ามีอย่างน้อย 1 ค่า)\n\n**Input:** จำนวนเต็มคั่นด้วยช่องว่าง\n**Output:** ค่าที่หาร 3 ลงตัว ตามลำดับเดิม\n\n### ตัวอย่าง\nInput:\n```\n1 3 5 9 10 12\n```\nOutput:\n```\n3 9 12\n```",
+  "difficulty": "medium",
+  "starter_code": "nums = [int(x) for x in input().split()]\n",
+  "tests": [
+   {
+    "input": "1 3 5 9 10 12",
+    "expected_output": "3 9 12",
+    "hidden": 0
+   },
+   {
+    "input": "3",
+    "expected_output": "3",
+    "hidden": 0
+   },
+   {
+    "input": "-3 0 7 6",
+    "expected_output": "-3 0 6",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "นับคนสอบผ่าน",
+  "description": "รับคะแนนสอบของนักเรียนหลายคนในบรรทัดเดียว แล้วนับว่ามีกี่คนที่ได้ 50 คะแนนขึ้นไป\n\n**Input:** คะแนนคั่นด้วยช่องว่าง\n**Output:** จำนวนคนที่ผ่าน\n\n### ตัวอย่าง\nInput:\n```\n45 80 50 30 90\n```\nOutput:\n```\n3\n```",
+  "difficulty": "medium",
+  "starter_code": "scores = [int(x) for x in input().split()]\n",
+  "tests": [
+   {
+    "input": "45 80 50 30 90",
+    "expected_output": "3",
+    "hidden": 0
+   },
+   {
+    "input": "100 100",
+    "expected_output": "2",
+    "hidden": 0
+   },
+   {
+    "input": "10 20 30",
+    "expected_output": "0",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "มากเป็นอันดับสอง",
+  "description": "รับจำนวนเต็มหลายค่า (อย่างน้อย 2 ค่าที่ต่างกัน) แล้วแสดงค่าที่มาก**เป็นอันดับสอง** โดยไม่นับค่าซ้ำ\n\n**Input:** จำนวนเต็มคั่นด้วยช่องว่าง\n**Output:** ค่ามากอันดับสอง\n\n### ตัวอย่าง\nInput:\n```\n3 9 1 7\n```\nOutput:\n```\n7\n```",
+  "difficulty": "medium",
+  "starter_code": "nums = [int(x) for x in input().split()]\n",
+  "tests": [
+   {
+    "input": "3 9 1 7",
+    "expected_output": "7",
+    "hidden": 0
+   },
+   {
+    "input": "5 5 8 8 2",
+    "expected_output": "5",
+    "hidden": 0
+   },
+   {
+    "input": "1 2",
+    "expected_output": "1",
+    "hidden": 1
+   },
+   {
+    "input": "10 9 10 8",
+    "expected_output": "9",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ฐานสิบเป็นฐานสอง",
+  "description": "รับจำนวนเต็มบวก n แล้วแสดงค่าในระบบเลขฐานสอง (ไม่มี `0b` นำหน้า)\n\n**Input:** จำนวนเต็มบวก n\n**Output:** เลขฐานสอง\n\n### ตัวอย่าง\nInput:\n```\n10\n```\nOutput:\n```\n1010\n```",
+  "difficulty": "medium",
+  "starter_code": "n = int(input())\n",
+  "tests": [
+   {
+    "input": "10",
+    "expected_output": "1010",
+    "hidden": 0
+   },
+   {
+    "input": "1",
+    "expected_output": "1",
+    "hidden": 0
+   },
+   {
+    "input": "255",
+    "expected_output": "11111111",
+    "hidden": 1
+   },
+   {
+    "input": "100",
+    "expected_output": "1100100",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ตัวอักษรที่พบบ่อยสุด",
+  "description": "รับคำภาษาอังกฤษ (ตัวพิมพ์เล็ก ไม่มีช่องว่าง) แล้วแสดงตัวอักษรที่ปรากฏบ่อยที่สุด ถ้ามีหลายตัวเท่ากันให้เลือกตัวที่มาก่อนตามลำดับ a-z\n\n**Input:** คำ 1 บรรทัด\n**Output:** ตัวอักษร 1 ตัว\n\n### ตัวอย่าง\nInput:\n```\nbanana\n```\nOutput:\n```\na\n```",
+  "difficulty": "medium",
+  "starter_code": "word = input()\n",
+  "tests": [
+   {
+    "input": "banana",
+    "expected_output": "a",
+    "hidden": 0
+   },
+   {
+    "input": "hello",
+    "expected_output": "l",
+    "hidden": 0
+   },
+   {
+    "input": "abab",
+    "expected_output": "a",
+    "hidden": 1
+   },
+   {
+    "input": "zzzaaa",
+    "expected_output": "a",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "สามเหลี่ยมสร้างได้ไหม",
+  "description": "รับความยาวด้าน 3 ด้าน (จำนวนเต็มบวก) ถ้านำมาสร้างสามเหลี่ยมได้แสดง `yes` ไม่ได้แสดง `no` (เงื่อนไข: ผลรวมของสองด้านใด ๆ ต้องมากกว่าด้านที่เหลือ)\n\n**Input:** จำนวนเต็มบวก 3 บรรทัด\n**Output:** `yes` หรือ `no`\n\n### ตัวอย่าง\nInput:\n```\n3\n4\n5\n```\nOutput:\n```\nyes\n```",
+  "difficulty": "medium",
+  "starter_code": "a = int(input())\nb = int(input())\nc = int(input())\n",
+  "tests": [
+   {
+    "input": "3\n4\n5",
+    "expected_output": "yes",
+    "hidden": 0
+   },
+   {
+    "input": "1\n2\n10",
+    "expected_output": "no",
+    "hidden": 0
+   },
+   {
+    "input": "2\n2\n4",
+    "expected_output": "no",
+    "hidden": 1
+   },
+   {
+    "input": "7\n7\n7",
+    "expected_output": "yes",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "วินาทีเป็นนาฬิกา",
+  "description": "รับจำนวนวินาที (0 ≤ s < 86400) แล้วแสดงเป็นเวลารูปแบบ `HH:MM:SS` (เติม 0 ให้ครบสองหลัก — ใช้ f-string `{x:02d}`)\n\n**Input:** จำนวนเต็ม s\n**Output:** เวลารูปแบบ HH:MM:SS\n\n### ตัวอย่าง\nInput:\n```\n3661\n```\nOutput:\n```\n01:01:01\n```",
+  "difficulty": "medium",
+  "starter_code": "s = int(input())\n",
+  "tests": [
+   {
+    "input": "3661",
+    "expected_output": "01:01:01",
+    "hidden": 0
+   },
+   {
+    "input": "0",
+    "expected_output": "00:00:00",
+    "hidden": 0
+   },
+   {
+    "input": "86399",
+    "expected_output": "23:59:59",
+    "hidden": 1
+   },
+   {
+    "input": "60",
+    "expected_output": "00:01:00",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ค่ามากที่สุดในลิสต์",
+  "description": "รับจำนวนเต็มหลายค่าในบรรทัดเดียว (คั่นด้วยช่องว่าง) แล้วแสดงค่ามากที่สุด **โดยห้ามใช้ฟังก์ชัน max()**\n\n**Input:** จำนวนเต็มคั่นด้วยช่องว่าง 1 บรรทัด\n**Output:** ค่ามากที่สุด\n\n> เคล็ดลับ: `nums = [int(x) for x in input().split()]`\n\n### ตัวอย่าง\nInput:\n```\n3 9 1 7\n```\nOutput:\n```\n9\n```",
+  "difficulty": "hard",
+  "starter_code": "nums = [int(x) for x in input().split()]\n# ห้ามใช้ max() — ลองวนลูปเปรียบเทียบเอง\n",
+  "tests": [
+   {
+    "input": "3 9 1 7",
+    "expected_output": "9",
+    "hidden": 0
+   },
+   {
+    "input": "-5 -2 -10",
+    "expected_output": "-2",
+    "hidden": 0
+   },
+   {
+    "input": "42",
+    "expected_output": "42",
+    "hidden": 1
+   },
+   {
+    "input": "1 2 3 100 99",
+    "expected_output": "100",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "นับสระภาษาอังกฤษ",
+  "description": "รับข้อความภาษาอังกฤษ 1 บรรทัด แล้วนับว่ามีสระ (a, e, i, o, u — ทั้งตัวเล็กและตัวใหญ่) กี่ตัว\n\n**Input:** ข้อความ 1 บรรทัด\n**Output:** จำนวนสระ\n\n### ตัวอย่าง\nInput:\n```\nHello World\n```\nOutput:\n```\n3\n```",
+  "difficulty": "hard",
+  "starter_code": "text = input()\ncount = 0\n# เขียนต่อตรงนี้\n",
+  "tests": [
+   {
+    "input": "Hello World",
+    "expected_output": "3",
+    "hidden": 0
+   },
+   {
+    "input": "Python",
+    "expected_output": "1",
+    "hidden": 0
+   },
+   {
+    "input": "AEIOU aeiou",
+    "expected_output": "10",
+    "hidden": 1
+   },
+   {
+    "input": "xyz",
+    "expected_output": "0",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "เลขเฉพาะหรือไม่",
+  "description": "รับจำนวนเต็ม n (n ≥ 2) ถ้า n เป็นจำนวนเฉพาะให้แสดง `prime` ไม่ใช่ให้แสดง `not prime`\n\nจำนวนเฉพาะคือจำนวนที่หารลงตัวด้วย 1 และตัวมันเองเท่านั้น\n\n**Input:** จำนวนเต็ม n\n**Output:** `prime` หรือ `not prime`\n\n### ตัวอย่าง\nInput:\n```\n7\n```\nOutput:\n```\nprime\n```",
+  "difficulty": "hard",
+  "starter_code": "n = int(input())\n# เขียนต่อตรงนี้\n",
+  "tests": [
+   {
+    "input": "7",
+    "expected_output": "prime",
+    "hidden": 0
+   },
+   {
+    "input": "9",
+    "expected_output": "not prime",
+    "hidden": 0
+   },
+   {
+    "input": "2",
+    "expected_output": "prime",
+    "hidden": 1
+   },
+   {
+    "input": "97",
+    "expected_output": "prime",
+    "hidden": 1
+   },
+   {
+    "input": "100",
+    "expected_output": "not prime",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "เลขเฉพาะทั้งหมดถึง n",
+  "description": "รับจำนวนเต็ม n (n ≥ 2) แล้วแสดงจำนวนเฉพาะทั้งหมดตั้งแต่ 2 ถึง n ในบรรทัดเดียว คั่นด้วยช่องว่าง\n\n**Input:** จำนวนเต็ม n\n**Output:** จำนวนเฉพาะคั่นด้วยช่องว่าง\n\n### ตัวอย่าง\nInput:\n```\n20\n```\nOutput:\n```\n2 3 5 7 11 13 17 19\n```",
+  "difficulty": "hard",
+  "starter_code": "n = int(input())\n",
+  "tests": [
+   {
+    "input": "20",
+    "expected_output": "2 3 5 7 11 13 17 19",
+    "hidden": 0
+   },
+   {
+    "input": "2",
+    "expected_output": "2",
+    "hidden": 0
+   },
+   {
+    "input": "50",
+    "expected_output": "2 3 5 7 11 13 17 19 23 29 31 37 41 43 47",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ตัวประกอบทั้งหมด",
+  "description": "รับจำนวนเต็มบวก n แล้วแสดงตัวประกอบทั้งหมดของ n จากน้อยไปมาก คั่นด้วยช่องว่าง\n\n**Input:** จำนวนเต็มบวก n\n**Output:** ตัวประกอบทั้งหมด\n\n### ตัวอย่าง\nInput:\n```\n12\n```\nOutput:\n```\n1 2 3 4 6 12\n```",
+  "difficulty": "hard",
+  "starter_code": "n = int(input())\n",
+  "tests": [
+   {
+    "input": "12",
+    "expected_output": "1 2 3 4 6 12",
+    "hidden": 0
+   },
+   {
+    "input": "7",
+    "expected_output": "1 7",
+    "hidden": 0
+   },
+   {
+    "input": "36",
+    "expected_output": "1 2 3 4 6 9 12 18 36",
+    "hidden": 1
+   },
+   {
+    "input": "1",
+    "expected_output": "1",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "จำนวนสมบูรณ์",
+  "description": "จำนวนสมบูรณ์ (perfect number) คือจำนวนที่เท่ากับผลรวมของตัวประกอบแท้ (ตัวประกอบที่ไม่รวมตัวเอง) เช่น 6 = 1+2+3 รับ n ถ้าเป็นจำนวนสมบูรณ์แสดง `yes` ไม่ใช่แสดง `no`\n\n**Input:** จำนวนเต็มบวก n\n**Output:** `yes` หรือ `no`\n\n### ตัวอย่าง\nInput:\n```\n6\n```\nOutput:\n```\nyes\n```",
+  "difficulty": "hard",
+  "starter_code": "n = int(input())\n",
+  "tests": [
+   {
+    "input": "6",
+    "expected_output": "yes",
+    "hidden": 0
+   },
+   {
+    "input": "10",
+    "expected_output": "no",
+    "hidden": 0
+   },
+   {
+    "input": "28",
+    "expected_output": "yes",
+    "hidden": 1
+   },
+   {
+    "input": "496",
+    "expected_output": "yes",
+    "hidden": 1
+   },
+   {
+    "input": "1",
+    "expected_output": "no",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "แยกตัวประกอบเฉพาะ",
+  "description": "รับจำนวนเต็ม n (n ≥ 2) แล้วแสดงตัวประกอบเฉพาะของ n เรียงจากน้อยไปมาก (ซ้ำได้) คั่นด้วยช่องว่าง เช่น 12 → `2 2 3`\n\n**Input:** จำนวนเต็ม n\n**Output:** ตัวประกอบเฉพาะคั่นด้วยช่องว่าง\n\n### ตัวอย่าง\nInput:\n```\n12\n```\nOutput:\n```\n2 2 3\n```",
+  "difficulty": "hard",
+  "starter_code": "n = int(input())\n",
+  "tests": [
+   {
+    "input": "12",
+    "expected_output": "2 2 3",
+    "hidden": 0
+   },
+   {
+    "input": "7",
+    "expected_output": "7",
+    "hidden": 0
+   },
+   {
+    "input": "100",
+    "expected_output": "2 2 5 5",
+    "hidden": 1
+   },
+   {
+    "input": "97",
+    "expected_output": "97",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ประโยคพาลินโดรม",
+  "description": "รับประโยคภาษาอังกฤษ ตรวจว่าเป็นพาลินโดรมหรือไม่ โดย**ไม่สนช่องว่างและตัวพิมพ์เล็ก-ใหญ่** ถ้าใช่แสดง `yes` ไม่ใช่แสดง `no`\n\n**Input:** ประโยค 1 บรรทัด\n**Output:** `yes` หรือ `no`\n\n### ตัวอย่าง\nInput:\n```\nnever odd or even\n```\nOutput:\n```\nyes\n```",
+  "difficulty": "hard",
+  "starter_code": "text = input()\n",
+  "tests": [
+   {
+    "input": "never odd or even",
+    "expected_output": "yes",
+    "hidden": 0
+   },
+   {
+    "input": "hello world",
+    "expected_output": "no",
+    "hidden": 0
+   },
+   {
+    "input": "Was It A Rat I Saw",
+    "expected_output": "yes",
+    "hidden": 1
+   },
+   {
+    "input": "ab",
+    "expected_output": "no",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "อนาแกรม",
+  "description": "รับคำภาษาอังกฤษ 2 บรรทัด ถ้าทั้งสองคำเป็นอนาแกรมกัน (ใช้ตัวอักษรชุดเดียวกัน จำนวนเท่ากัน) แสดง `yes` ไม่ใช่แสดง `no`\n\n**Input:** คำ 2 บรรทัด (ตัวพิมพ์เล็ก)\n**Output:** `yes` หรือ `no`\n\n### ตัวอย่าง\nInput:\n```\nlisten\nsilent\n```\nOutput:\n```\nyes\n```",
+  "difficulty": "hard",
+  "starter_code": "a = input()\nb = input()\n",
+  "tests": [
+   {
+    "input": "listen\nsilent",
+    "expected_output": "yes",
+    "hidden": 0
+   },
+   {
+    "input": "hello\nworld",
+    "expected_output": "no",
+    "hidden": 0
+   },
+   {
+    "input": "ab\nab",
+    "expected_output": "yes",
+    "hidden": 1
+   },
+   {
+    "input": "aab\nabb",
+    "expected_output": "no",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ฟีโบนัชชีตัวที่ n",
+  "description": "แสดงตัวเลขฟีโบนัชชีลำดับที่ n (F(1) = 1, F(2) = 1, F(n) = F(n-1) + F(n-2)) โดย n อาจใหญ่ถึง 90 — ต้องใช้ลูป ไม่ใช่ recursion ธรรมดา\n\n**Input:** จำนวนเต็ม n (1 ≤ n ≤ 90)\n**Output:** F(n)\n\n### ตัวอย่าง\nInput:\n```\n7\n```\nOutput:\n```\n13\n```",
+  "difficulty": "hard",
+  "starter_code": "n = int(input())\n",
+  "tests": [
+   {
+    "input": "7",
+    "expected_output": "13",
+    "hidden": 0
+   },
+   {
+    "input": "1",
+    "expected_output": "1",
+    "hidden": 0
+   },
+   {
+    "input": "50",
+    "expected_output": "12586269025",
+    "hidden": 1
+   },
+   {
+    "input": "90",
+    "expected_output": "2880067194370816120",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "เรียงลำดับด้วยตัวเอง",
+  "description": "รับจำนวนเต็มหลายค่า แล้วแสดงผลเรียงจากน้อยไปมาก **ห้ามใช้ sort() หรือ sorted()** — ลองเขียน bubble sort เอง\n\n**Input:** จำนวนเต็มคั่นด้วยช่องว่าง\n**Output:** ค่าที่เรียงแล้ว คั่นด้วยช่องว่าง\n\n### ตัวอย่าง\nInput:\n```\n5 2 8 1 9\n```\nOutput:\n```\n1 2 5 8 9\n```",
+  "difficulty": "hard",
+  "starter_code": "nums = [int(x) for x in input().split()]\n# bubble sort: วนเทียบคู่ที่ติดกัน ถ้าสลับลำดับผิดให้สลับที่\n",
+  "tests": [
+   {
+    "input": "5 2 8 1 9",
+    "expected_output": "1 2 5 8 9",
+    "hidden": 0
+   },
+   {
+    "input": "3 3 1",
+    "expected_output": "1 3 3",
+    "hidden": 0
+   },
+   {
+    "input": "10",
+    "expected_output": "10",
+    "hidden": 1
+   },
+   {
+    "input": "-4 0 -9 7",
+    "expected_output": "-9 -4 0 7",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "นับคู่ผลรวมเท่ากับ k",
+  "description": "รับลิสต์จำนวนเต็มในบรรทัดแรก และค่า k ในบรรทัดที่สอง นับจำนวนคู่ (i, j) ที่ i < j และ nums[i] + nums[j] = k\n\n**Input:** ลิสต์ 1 บรรทัด และ k 1 บรรทัด\n**Output:** จำนวนคู่\n\n### ตัวอย่าง\nInput:\n```\n1 2 3 4 5\n6\n```\nOutput:\n```\n2\n```",
+  "difficulty": "hard",
+  "starter_code": "nums = [int(x) for x in input().split()]\nk = int(input())\n",
+  "tests": [
+   {
+    "input": "1 2 3 4 5\n6",
+    "expected_output": "2",
+    "hidden": 0
+   },
+   {
+    "input": "1 1 1\n2",
+    "expected_output": "3",
+    "hidden": 0
+   },
+   {
+    "input": "5\n10",
+    "expected_output": "0",
+    "hidden": 1
+   },
+   {
+    "input": "2 2 2 2\n4",
+    "expected_output": "6",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ผลรวมช่วงย่อยมากสุด",
+  "description": "รับจำนวนเต็มหลายค่า (มีค่าติดลบได้) แล้วหาผลรวมของ**ช่วงที่ติดกัน**ที่มากที่สุด เช่น `[-2, 1, -3, 4, -1, 2, 1, -5, 4]` ช่วงที่ดีที่สุดคือ `[4, -1, 2, 1]` รวมได้ 6\n\n**Input:** จำนวนเต็มคั่นด้วยช่องว่าง\n**Output:** ผลรวมช่วงย่อยมากสุด\n\n### ตัวอย่าง\nInput:\n```\n-2 1 -3 4 -1 2 1 -5 4\n```\nOutput:\n```\n6\n```",
+  "difficulty": "hard",
+  "starter_code": "nums = [int(x) for x in input().split()]\n",
+  "tests": [
+   {
+    "input": "-2 1 -3 4 -1 2 1 -5 4",
+    "expected_output": "6",
+    "hidden": 0
+   },
+   {
+    "input": "1 2 3",
+    "expected_output": "6",
+    "hidden": 0
+   },
+   {
+    "input": "-5 -1 -8",
+    "expected_output": "-1",
+    "hidden": 1
+   },
+   {
+    "input": "5 -9 6 -2 3",
+    "expected_output": "7",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "รหัสซีซาร์",
+  "description": "เข้ารหัสข้อความด้วยการเลื่อนตัวอักษร: รับข้อความ (ตัวพิมพ์เล็ก a-z และช่องว่าง) และจำนวนเลื่อน k แล้วเลื่อนตัวอักษรแต่ละตัวไป k ตำแหน่ง (วนกลับ z → a) ช่องว่างคงเดิม\n\n**Input:** ข้อความ 1 บรรทัด และ k 1 บรรทัด\n**Output:** ข้อความที่เข้ารหัสแล้ว\n\n### ตัวอย่าง\nInput:\n```\nabc\n1\n```\nOutput:\n```\nbcd\n```",
+  "difficulty": "hard",
+  "starter_code": "text = input()\nk = int(input())\n# chr() และ ord() ช่วยแปลงตัวอักษร <-> รหัสตัวเลข\n",
+  "tests": [
+   {
+    "input": "abc\n1",
+    "expected_output": "bcd",
+    "hidden": 0
+   },
+   {
+    "input": "hello world\n3",
+    "expected_output": "khoor zruog",
+    "hidden": 0
+   },
+   {
+    "input": "xyz\n3",
+    "expected_output": "abc",
+    "hidden": 1
+   },
+   {
+    "input": "attack at dawn\n13",
+    "expected_output": "nggnpx ng qnja",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "วงเล็บสมดุล",
+  "description": "รับข้อความที่มีเฉพาะวงเล็บ `()[]{}` ตรวจว่าเปิด-ปิดถูกต้องครบคู่และซ้อนกันถูกลำดับหรือไม่ ถ้าถูกแสดง `valid` ผิดแสดง `invalid`\n\n**Input:** ข้อความวงเล็บ 1 บรรทัด\n**Output:** `valid` หรือ `invalid`\n\n### ตัวอย่าง\nInput:\n```\n([]{})\n```\nOutput:\n```\nvalid\n```",
+  "difficulty": "hard",
+  "starter_code": "s = input()\n# ใช้ลิสต์เป็น stack: เจอวงเล็บเปิด push เจอวงเล็บปิด pop มาเทียบ\n",
+  "tests": [
+   {
+    "input": "([]{})",
+    "expected_output": "valid",
+    "hidden": 0
+   },
+   {
+    "input": "([)]",
+    "expected_output": "invalid",
+    "hidden": 0
+   },
+   {
+    "input": "(((",
+    "expected_output": "invalid",
+    "hidden": 1
+   },
+   {
+    "input": "{}",
+    "expected_output": "valid",
+    "hidden": 1
+   },
+   {
+    "input": "]",
+    "expected_output": "invalid",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "เลขโรมันเป็นอารบิก",
+  "description": "รับเลขโรมัน (I, V, X, L, C, D, M) แล้วแปลงเป็นเลขอารบิก เช่น `XIV` → 14 (ถ้าตัวซ้ายน้อยกว่าตัวขวาให้ลบ)\n\n**Input:** เลขโรมัน 1 บรรทัด\n**Output:** จำนวนเต็ม\n\n### ตัวอย่าง\nInput:\n```\nXIV\n```\nOutput:\n```\n14\n```",
+  "difficulty": "hard",
+  "starter_code": "roman = input()\nvalues = {\"I\": 1, \"V\": 5, \"X\": 10, \"L\": 50, \"C\": 100, \"D\": 500, \"M\": 1000}\n",
+  "tests": [
+   {
+    "input": "XIV",
+    "expected_output": "14",
+    "hidden": 0
+   },
+   {
+    "input": "IX",
+    "expected_output": "9",
+    "hidden": 0
+   },
+   {
+    "input": "MMXXIV",
+    "expected_output": "2024",
+    "hidden": 1
+   },
+   {
+    "input": "MCMXCIV",
+    "expected_output": "1994",
+    "hidden": 1
+   },
+   {
+    "input": "III",
+    "expected_output": "3",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "อารบิกเป็นเลขโรมัน",
+  "description": "รับจำนวนเต็ม n (1 ≤ n ≤ 3999) แล้วแปลงเป็นเลขโรมัน\n\n**Input:** จำนวนเต็ม n\n**Output:** เลขโรมัน\n\n### ตัวอย่าง\nInput:\n```\n14\n```\nOutput:\n```\nXIV\n```",
+  "difficulty": "hard",
+  "starter_code": "n = int(input())\n# จับคู่ค่า-สัญลักษณ์จากมากไปน้อย: 1000 M, 900 CM, 500 D, 400 CD, ...\n",
+  "tests": [
+   {
+    "input": "14",
+    "expected_output": "XIV",
+    "hidden": 0
+   },
+   {
+    "input": "9",
+    "expected_output": "IX",
+    "hidden": 0
+   },
+   {
+    "input": "2024",
+    "expected_output": "MMXXIV",
+    "hidden": 1
+   },
+   {
+    "input": "1994",
+    "expected_output": "MCMXCIV",
+    "hidden": 1
+   },
+   {
+    "input": "3999",
+    "expected_output": "MMMCMXCIX",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "คำที่พบบ่อยสุด",
+  "description": "รับประโยคภาษาอังกฤษ (ตัวพิมพ์เล็ก) แล้วแสดงคำที่ปรากฏบ่อยที่สุด ถ้ามีหลายคำเท่ากันให้เลือกคำที่มาก่อนตามลำดับพจนานุกรม\n\n**Input:** ประโยค 1 บรรทัด\n**Output:** คำ 1 คำ\n\n### ตัวอย่าง\nInput:\n```\nthe cat and the dog and the bird\n```\nOutput:\n```\nthe\n```",
+  "difficulty": "hard",
+  "starter_code": "words = input().split()\n",
+  "tests": [
+   {
+    "input": "the cat and the dog and the bird",
+    "expected_output": "the",
+    "hidden": 0
+   },
+   {
+    "input": "a b a b",
+    "expected_output": "a",
+    "hidden": 0
+   },
+   {
+    "input": "one two three",
+    "expected_output": "one",
+    "hidden": 1
+   },
+   {
+    "input": "z z y y x",
+    "expected_output": "y",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "ลำดับโคลัทซ์",
+  "description": "ลำดับโคลัทซ์: ถ้า n เป็นเลขคู่ให้ n = n ÷ 2 ถ้าเป็นเลขคี่ให้ n = 3n + 1 ทำซ้ำจนกว่า n = 1 รับ n แล้วนับว่าต้องทำกี่ขั้นตอนจึงถึง 1\n\n**Input:** จำนวนเต็ม n (n ≥ 1)\n**Output:** จำนวนขั้นตอน\n\n### ตัวอย่าง\nInput:\n```\n6\n```\nOutput:\n```\n8\n```",
+  "difficulty": "hard",
+  "starter_code": "n = int(input())\nsteps = 0\n",
+  "tests": [
+   {
+    "input": "6",
+    "expected_output": "8",
+    "hidden": 0
+   },
+   {
+    "input": "1",
+    "expected_output": "0",
+    "hidden": 0
+   },
+   {
+    "input": "27",
+    "expected_output": "111",
+    "hidden": 1
+   },
+   {
+    "input": "7",
+    "expected_output": "16",
+    "hidden": 1
+   }
+  ]
+ },
+ {
+  "title": "วิธีขึ้นบันได",
+  "description": "บันไดมี n ขั้น เดินขึ้นได้ครั้งละ 1 หรือ 2 ขั้น มีวิธีขึ้นที่ต่างกันทั้งหมดกี่วิธี? (n อาจใหญ่ถึง 90 — ใช้ลูปแบบฟีโบนัชชี)\n\n**Input:** จำนวนเต็ม n (1 ≤ n ≤ 90)\n**Output:** จำนวนวิธี\n\n### ตัวอย่าง\nInput:\n```\n3\n```\nOutput:\n```\n3\n```",
+  "difficulty": "hard",
+  "starter_code": "n = int(input())\n# จำนวนวิธีของขั้น n = วิธีของขั้น n-1 + วิธีของขั้น n-2\n",
+  "tests": [
+   {
+    "input": "3",
+    "expected_output": "3",
+    "hidden": 0
+   },
+   {
+    "input": "1",
+    "expected_output": "1",
+    "hidden": 0
+   },
+   {
+    "input": "10",
+    "expected_output": "89",
+    "hidden": 1
+   },
+   {
+    "input": "90",
+    "expected_output": "4660046610375530309",
+    "hidden": 1
+   }
+  ]
+ }
+]
