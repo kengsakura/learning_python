@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 type Q = { id: number; question: string; choices: string[] };
 type GradeResult = {
@@ -10,6 +11,7 @@ type GradeResult = {
 };
 
 export default function QuizPlayer({ lessonId, questions }: { lessonId: number; questions: Q[] }) {
+  const router = useRouter();
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [graded, setGraded] = useState<GradeResult | null>(null);
   const [loading, setLoading] = useState(false);
@@ -24,7 +26,10 @@ export default function QuizPlayer({ lessonId, questions }: { lessonId: number; 
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ lessonId, answers }),
       });
-      if (res.ok) setGraded(await res.json());
+      if (res.ok) {
+        setGraded(await res.json());
+        router.refresh(); // ล้างแคชเพื่อให้คะแนนควิซบนหน้าบทเรียนอัปเดต
+      }
     } finally {
       setLoading(false);
     }

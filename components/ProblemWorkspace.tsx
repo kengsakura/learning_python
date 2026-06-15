@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 import Markdown from "./Markdown";
 import CodeEditor from "./CodeEditor";
 import { usePyRunner, type TestResult } from "./usePyRunner";
@@ -45,6 +46,7 @@ export default function ProblemWorkspace({
   initialMode?: string;
   saveDraft?: boolean;
 }) {
+  const router = useRouter();
   const { status, runTests, runOnce } = usePyRunner();
   const [mode, setMode] = useState<"code" | "blocks">(initialMode === "blocks" ? "blocks" : "code");
   const [mobileTab, setMobileTab] = useState<"desc" | "editor">("desc");
@@ -112,6 +114,8 @@ export default function ProblemWorkspace({
       });
       const data = await resp.json();
       if (data.success) setSolved(true);
+      // ล้าง Router Cache เพื่อให้หน้ารายการโจทย์แสดงสถานะ "ผ่านแล้ว/ลองแล้ว" ที่อัปเดตแล้ว
+      router.refresh();
     } catch (e) {
       setRunError(e instanceof Error ? e.message : String(e));
     } finally {
