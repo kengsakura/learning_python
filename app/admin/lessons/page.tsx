@@ -30,6 +30,7 @@ export default async function AdminLessonsPage() {
           <Link
             key={l.id}
             href={`/admin/lessons/${l.id}`}
+            prefetch={false}
             className="flex items-center gap-3 px-4 py-3 border-b border-slate-100 last:border-0 hover:bg-slate-50"
           >
             <span className="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-700 text-sm font-bold flex items-center justify-center shrink-0">

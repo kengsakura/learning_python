@@ -54,7 +54,7 @@ export default async function AdminStudentsPage() {
             {students.map((st) => (
               <tr key={st.id} className="border-t border-slate-100 hover:bg-slate-50">
                 <td className="px-4 py-2.5">
-                  <Link href={`/admin/students/${st.id}`} className="block">
+                  <Link href={`/admin/students/${st.id}`} prefetch={false} className="block">
                     <div className="font-medium text-indigo-700 hover:underline">{st.name}</div>
                     <div className="text-xs text-slate-400">@{st.username}</div>
                   </Link>
@@ -81,6 +81,7 @@ export default async function AdminStudentsPage() {
           <Link
             key={st.id}
             href={`/admin/students/${st.id}`}
+            prefetch={false}
             className="block bg-white rounded-2xl border border-slate-200 p-4 hover:border-indigo-300"
           >
             <div className="font-medium text-indigo-700">{st.name} ›</div>

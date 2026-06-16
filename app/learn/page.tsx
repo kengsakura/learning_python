@@ -38,6 +38,7 @@ export default async function LearnPage() {
             <Link
               key={l.id}
               href={`/learn/${l.id}`}
+              prefetch={false}
               className="bg-white rounded-2xl border border-slate-200 p-4 hover:border-indigo-300 hover:shadow-sm transition"
             >
               <div className="flex items-start gap-3">

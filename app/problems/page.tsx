@@ -63,6 +63,7 @@ export default async function ProblemsPage({
             <Link
               key={p.id}
               href={`/problems/${p.id}`}
+              prefetch={false}
               className={`bg-white rounded-2xl border p-4 hover:shadow-sm transition ${
                 status === "solved"
                   ? "border-green-300"

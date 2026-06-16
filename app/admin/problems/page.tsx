@@ -37,6 +37,7 @@ export default async function AdminProblemsPage() {
           <Link
             key={p.id}
             href={`/admin/problems/${p.id}`}
+            prefetch={false}
             className="flex items-center gap-3 px-4 py-3 border-b border-slate-100 last:border-0 hover:bg-slate-50"
           >
             <div className="min-w-0 flex-1">
