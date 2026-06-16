@@ -33,9 +33,50 @@ async function getPg() {
   if (!pgSql) {
     const postgres = (await import("postgres")).default;
     // prepare:false จำเป็นเมื่อต่อผ่าน pgbouncer (pooled URL ของ Supabase)
-    pgSql = postgres(PG_URL, { prepare: false, max: 1 });
+    // idle_timeout/connect_timeout ช่วยให้ไม่ถือ connection ค้างนานบน serverless
+    pgSql = postgres(PG_URL, {
+      prepare: false,
+      max: 1,
+      idle_timeout: 20,
+      connect_timeout: 10,
+    });
   }
   return pgSql;
+}
+
+// ทิ้ง connection ที่อาจตาย/ค้าง เพื่อให้สร้างใหม่ในการเรียกครั้งถัดไป
+async function resetPg() {
+  const old = pgSql;
+  pgSql = null;
+  if (old) {
+    try {
+      await old.end({ timeout: 1 });
+    } catch {
+      /* ปิดไม่สำเร็จก็ทิ้งไป */
+    }
+  }
+}
+
+// บน serverless connection ที่ถือข้ามการเรียกอาจถูกปิดฝั่งเซิร์ฟเวอร์ พอเอา socket
+// ที่ตายแล้วมาใช้ query จะค้างยาวจนฟังก์ชันหมดเวลา (504)
+// แก้: ใส่ timeout ต่อ query ถ้าค้างให้ทิ้ง connection แล้วลองใหม่อีกครั้งด้วย connection สด
+async function pgRun<T>(run: (pg: any) => Promise<T>): Promise<T> {
+  const QUERY_TIMEOUT = 4000;
+  const attempt = async (): Promise<T> => {
+    const pg = await getPg();
+    return await Promise.race<T>([
+      run(pg),
+      new Promise<T>((_, reject) =>
+        setTimeout(() => reject(new Error("PG_TIMEOUT")), QUERY_TIMEOUT)
+      ),
+    ]);
+  };
+  try {
+    return await attempt();
+  } catch {
+    await resetPg();
+    return await attempt();
+  }
 }
 
 async function getSqlite() {
@@ -56,8 +97,7 @@ function toPgPlaceholders(sql: string): string {
 
 async function rawQuery<T = Row>(sql: string, params: unknown[] = []): Promise<T[]> {
   if (PG_URL) {
-    const pg = await getPg();
-    return (await pg.unsafe(toPgPlaceholders(sql), params as never[])) as T[];
+    return (await pgRun((pg) => pg.unsafe(toPgPlaceholders(sql), params as never[]))) as T[];
   }
   const d = await getSqlite();
   const stmt = d.prepare(sql);
@@ -68,8 +108,7 @@ async function rawQuery<T = Row>(sql: string, params: unknown[] = []): Promise<T
 
 async function rawExec(ddl: string): Promise<void> {
   if (PG_URL) {
-    const pg = await getPg();
-    await pg.unsafe(ddl);
+    await pgRun((pg) => pg.unsafe(ddl));
     return;
   }
   const d = await getSqlite();
@@ -78,7 +117,13 @@ async function rawExec(ddl: string): Promise<void> {
 
 /** รัน query (สร้าง schema + sync เนื้อหาให้อัตโนมัติครั้งแรก) — ใช้ placeholder `?` */
 export async function q<T = Row>(sql: string, params: unknown[] = []): Promise<T[]> {
-  if (!initPromise) initPromise = init();
+  // ถ้า init ล้มเหลว ให้ล้าง initPromise เพื่อให้คำขอถัดไปลองใหม่ (ไม่ค้างพังถาวรทั้ง instance)
+  if (!initPromise) {
+    initPromise = init().catch((e) => {
+      initPromise = null;
+      throw e;
+    });
+  }
   await initPromise;
   return rawQuery<T>(sql, params);
 }
