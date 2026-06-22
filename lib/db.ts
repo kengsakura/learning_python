@@ -39,6 +39,16 @@ async function getPg() {
       max: 1,
       idle_timeout: 20,
       connect_timeout: 10,
+      // คืน bigint (int8 เช่นคอลัมน์ id) เป็น number ให้เหมือน SQLite — ไม่งั้น id เป็น string
+      // ทำให้ Map.get(id)/Set.has(id) ที่ใช้ key เป็น number หาไม่เจอ (สถานะ "ผ่านแล้ว" ไม่ขึ้น)
+      types: {
+        bigint: {
+          to: 20,
+          from: [20],
+          serialize: (x: number) => x.toString(),
+          parse: (x: string) => Number(x),
+        },
+      },
     });
   }
   return pgSql;
