@@ -105,6 +105,18 @@ export async function getDraft(
   );
 }
 
+// ผลแบบทดสอบของบทเรียนหนึ่ง (ทำได้ครั้งเดียว — เอาครั้งแรก)
+export async function getQuizAttempt(
+  userId: number,
+  lessonId: number
+): Promise<{ score: number; total: number } | undefined> {
+  const row = await qOne<{ score: number; total: number }>(
+    "SELECT score, total FROM quiz_attempts WHERE user_id = ? AND lesson_id = ? ORDER BY id LIMIT 1",
+    [userId, lessonId]
+  );
+  return row ? { score: Number(row.score), total: Number(row.total) } : undefined;
+}
+
 export async function getBestQuizScores(
   userId: number
 ): Promise<Map<number, { score: number; total: number }>> {

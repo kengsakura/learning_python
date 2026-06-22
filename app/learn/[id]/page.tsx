@@ -5,7 +5,7 @@ import Markdown from "@/components/Markdown";
 import QuizPlayer from "@/components/QuizPlayer";
 import CompleteLessonButton from "@/components/CompleteLessonButton";
 import { getSession } from "@/lib/auth";
-import { getLesson, getQuestions, getProgress, listLessons } from "@/lib/queries";
+import { getLesson, getQuestions, getProgress, listLessons, getQuizAttempt } from "@/lib/queries";
 
 export const dynamic = "force-dynamic";
 
@@ -17,11 +17,15 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
   const lesson = await getLesson(Number(id));
   if (!lesson || (!lesson.published && s.role !== "teacher")) notFound();
 
-  // ส่งคำถามไปหน้าเว็บโดยไม่แนบเฉลย — ตรวจที่เซิร์ฟเวอร์
+  // แบบทดสอบทำได้ครั้งเดียว — ถ้าทำแล้วค่อยแนบเฉลยไปแสดงผล (ก่อนทำจะไม่ส่งเฉลย)
+  const attempt = s.role === "student" ? await getQuizAttempt(s.userId, lesson.id) : undefined;
   const questions = (await getQuestions(lesson.id)).map((q) => ({
     id: q.id,
     question: q.question,
     choices: JSON.parse(q.choices) as string[],
+    ...(attempt
+      ? { answerIndex: Number(q.answer_index), explanation: q.explanation }
+      : {}),
   }));
 
   const all = await listLessons();
@@ -29,6 +33,7 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
   const prev = idx > 0 ? all[idx - 1] : null;
   const next = idx >= 0 && idx < all.length - 1 ? all[idx + 1] : null;
   const done = s.role === "student" ? (await getProgress(s.userId)).has(lesson.id) : false;
+  const hasQuiz = questions.length > 0;
 
   return (
     <AppShell session={s} active="/learn">
@@ -40,14 +45,21 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
 
       <article className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-6 mb-4">
         <Markdown>{lesson.content}</Markdown>
-        {s.role === "student" && (
+        {/* บทที่มีแบบทดสอบ ถือว่าเรียนจบเมื่อทำแบบทดสอบ — ปุ่มนี้ใช้เฉพาะบทที่ไม่มีแบบทดสอบ */}
+        {s.role === "student" && !hasQuiz && (
           <div className="mt-6 pt-4 border-t border-slate-100">
             <CompleteLessonButton lessonId={lesson.id} done={done} />
           </div>
         )}
       </article>
 
-      {s.role === "student" && <QuizPlayer lessonId={lesson.id} questions={questions} />}
+      {s.role === "student" && hasQuiz && (
+        <QuizPlayer
+          lessonId={lesson.id}
+          questions={questions}
+          locked={attempt ?? null}
+        />
+      )}
 
       <div className="flex justify-between mt-5 gap-3">
         {prev ? (
